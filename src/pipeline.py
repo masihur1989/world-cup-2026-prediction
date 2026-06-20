@@ -30,10 +30,13 @@ from src.feature_builder import (
     build_features,
     save_features,
     compute_penalty_win_rates,
+    MatchupFeatureProvider,
 )
+from src.fixtures_bracket import load_tournament
 from src.poisson_model import PoissonGoalModel, add_poisson_features
 from src.xgboost_model import WorldCupXGBModel, FEATURE_COLS, train_and_log
 from src.simulator import TournamentSimulator, save_simulation_results
+from src.predictions import save_prediction_snapshot, load_actual_results
 
 PROCESSED = Path("data/processed")
 PROCESSED.mkdir(parents=True, exist_ok=True)
@@ -196,19 +199,37 @@ def stage_shap(ctx, cfg):
 def stage_simulate(ctx, cfg):
     features = _get_features(ctx)
     shootouts = _get_shootouts(ctx)
+    results = _get_results(ctx)
+    elo = _get_elo(ctx)
     model = _get_model_3class(ctx)
+
+    poisson = PoissonGoalModel()
+    poisson.load(str(PROCESSED / "poisson_model.pkl"))
+
+    as_of = pd.Timestamp(cfg["as_of"])
+    tournament = load_tournament("data/raw/wc2026_fixtures.csv")
     penalty_rates = compute_penalty_win_rates(shootouts)
-    sim = TournamentSimulator(model, penalty_rates, features)
+    provider = MatchupFeatureProvider(elo, results, shootouts, as_of, poisson_model=poisson)
+    known = load_actual_results()
+
+    sim = TournamentSimulator(model, penalty_rates, tournament, provider, known_results=known)
     log.info("  precomputing matchup probabilities...")
     sim.precompute_probabilities()
-    results = sim.run(
-        n_simulations=cfg["simulations"],
-        progress_callback=_progress("simulation"),
+    team_df, bracket_df = sim.run(
+        n_simulations=cfg["simulations"], progress_callback=_progress("simulation"),
     )
-    save_simulation_results(results)
-    ctx["sim_results"] = results
+    save_prediction_snapshot(team_df, bracket_df, cfg["as_of"], cfg["label"],
+                             n_simulations=cfg["simulations"], force=cfg.get("force", False))
+    ctx["sim_results"] = team_df
+    log.info("  snapshot saved: %s__%s", cfg["as_of"], cfg["label"])
     log.info("  top 5 champions:\n%s",
-             results[["team", "p_champion", "confederation"]].head().to_string(index=False))
+             team_df[["team", "p_champion", "confederation"]].head().to_string(index=False))
+
+
+def run_simulate_only(cfg):
+    """Run just the simulate stage with an explicit cfg (used by tests/CLI)."""
+    ctx = {}
+    stage_simulate(ctx, cfg)
 
 
 STAGE_FUNCS = {
@@ -249,8 +270,10 @@ def print_status() -> None:
               f"(resume with: python -m src.pipeline)")
 
 
-def run_pipeline(trials=100, simulations=100_000, start_from=None, force=False):
-    cfg = {"trials": trials, "simulations": simulations}
+def run_pipeline(trials=100, simulations=100_000, start_from=None, force=False,
+                 as_of="2026-06-10", label="pre_tournament"):
+    cfg = {"trials": trials, "simulations": simulations,
+           "as_of": as_of, "label": label, "force": force}
     n = len(STAGE_ORDER)
 
     if force:
@@ -295,6 +318,9 @@ if __name__ == "__main__":
                         help="Re-run all stages from scratch, ignoring checkpoints")
     parser.add_argument("--status", action="store_true",
                         help="Show checkpoint status and exit")
+    parser.add_argument("--as-of", default="2026-06-10",
+                        help="Snapshot date / as-of date for matchup features")
+    parser.add_argument("--label", default="pre_tournament", help="Snapshot label")
     args = parser.parse_args()
 
     if args.status:
@@ -305,4 +331,6 @@ if __name__ == "__main__":
             simulations=args.simulations,
             start_from=args.start_from,
             force=args.force,
+            as_of=args.as_of,
+            label=args.label,
         )
