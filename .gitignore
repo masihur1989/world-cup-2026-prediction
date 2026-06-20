@@ -3,3 +3,6 @@
 __pycache__/
 *.pyc
 .idea/
+.pytest_cache/
+mlruns/
+data/processed/
