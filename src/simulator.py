@@ -120,6 +120,8 @@ class TournamentSimulator:
         assigned = assign_third_place(third_slot_eligibles, best_thirds)
         third_by_pos = {pos: team for pos, team in zip(slot_lookup, assigned)}
 
+        positions = []  # (round_label, match_index, team)
+
         r32_winners = []
         advanced = set()
         for i, (sa, sb) in enumerate(self.tournament.r32_slots):
@@ -128,8 +130,11 @@ class TournamentSimulator:
             tb = (third_by_pos[(i, "b")] if sb.kind == "third"
                   else (group_winner[sb.group] if sb.kind == "winner" else group_runner[sb.group]))
             advanced.add(ta); advanced.add(tb)
+            positions.append(("R32", i, ta))
+            positions.append(("R32", i, tb))
             r32_winners.append(self.simulate_knockout_match(ta, tb))
 
+        round_labels = {16: "R16", 8: "QF", 4: "SF", 2: "Final"}
         current = r32_winners
         semifinalists, finalists = [], []
         while len(current) > 1:
@@ -137,6 +142,9 @@ class TournamentSimulator:
                 semifinalists = list(current)
             if len(current) == 2:
                 finalists = list(current)
+            label = round_labels[len(current)]
+            for j, team in enumerate(current):
+                positions.append((label, j // 2, team))
             nxt = [self.simulate_knockout_match(current[i], current[i + 1])
                    for i in range(0, len(current), 2)]
             current = nxt
@@ -148,6 +156,7 @@ class TournamentSimulator:
             "group_winners": list(group_winner.values()),
             "runners_up": list(group_runner.values()),
             "advanced": advanced,
+            "positions": positions,
         }
 
     def run(self, n_simulations: int = 100_000, progress_callback=None):
@@ -155,6 +164,7 @@ class TournamentSimulator:
             self.precompute_probabilities()
         champ = defaultdict(int); fin = defaultdict(int); semi = defaultdict(int)
         gw = defaultdict(int); ru = defaultdict(int); adv = defaultdict(int)
+        pos_counts = defaultdict(int)  # (round, match_index, team) -> count
         report_every = max(1, n_simulations // 20)
         for i in range(n_simulations):
             r = self.simulate_full_tournament()
@@ -169,6 +179,8 @@ class TournamentSimulator:
                 ru[t] += 1
             for t in r["advanced"]:
                 adv[t] += 1
+            for (rnd, mi, team) in r["positions"]:
+                pos_counts[(rnd, mi, team)] += 1
             if progress_callback and (i + 1) % report_every == 0:
                 progress_callback(i + 1, n_simulations)
 
@@ -187,7 +199,14 @@ class TournamentSimulator:
         if total > 0:
             df["p_champion"] = df["p_champion"] / total
         df = df.sort_values("p_champion", ascending=False).reset_index(drop=True)
-        bracket = pd.DataFrame(columns=["round", "match_index", "team", "p_reach"])
+        bracket = pd.DataFrame(
+            [{"round": rnd, "match_index": mi, "team": team,
+              "p_reach": c / n_simulations}
+             for (rnd, mi, team), c in pos_counts.items()]
+        )
+        bracket = bracket.sort_values(
+            ["round", "match_index", "p_reach"], ascending=[True, True, False]
+        ).reset_index(drop=True)
         return df, bracket
 
 

@@ -70,3 +70,22 @@ def test_advance_count_is_32_per_sim(tournament):
     df, _ = sim.run(n_simulations=100)
     # 12 winners + 12 runners + 8 best thirds = 32 teams advance each sim
     assert (df["p_advance"] * 1).sum() == pytest.approx(32.0, abs=0.5)
+
+
+def test_bracket_frame_positions(tournament):
+    sim = make_sim(tournament)
+    _df, bracket = sim.run(n_simulations=100)
+    assert set(bracket.columns) == {"round", "match_index", "team", "p_reach"}
+    counts = bracket.groupby("round")["match_index"].nunique().to_dict()
+    assert counts["R32"] == 16
+    assert counts["R16"] == 8
+    assert counts["QF"] == 4
+    assert counts["SF"] == 2
+    assert counts["Final"] == 1
+
+
+def test_bracket_two_participants_per_match(tournament):
+    sim = make_sim(tournament)
+    _df, bracket = sim.run(n_simulations=200)
+    s = bracket.groupby(["round", "match_index"])["p_reach"].sum()
+    assert np.allclose(s.values, 2.0, atol=0.05)
