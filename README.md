@@ -10,7 +10,7 @@ runs on **local CSV data only** — no external APIs, no web scraping.
 | **2** | XGBoost classifier (3-class group / binary knockout) | Calibrated W/D/L probabilities |
 | **3** | Monte Carlo tournament simulator | Champion / finalist / semifinalist probabilities |
 
-A Streamlit dashboard reads the pre-computed results and presents four interactive views.
+A Streamlit dashboard reads the pre-computed results and presents five interactive views.
 
 ---
 
@@ -47,11 +47,11 @@ data/raw/*.csv
 │   ├── simulator.py        # Stage 3: Monte Carlo tournament
 │   └── pipeline.py         # end-to-end orchestrator
 ├── app/
-│   └── dashboard.py        # Streamlit 4-view dashboard
+│   └── dashboard.py        # Streamlit 5-view dashboard
 ├── scripts/
 │   ├── generate_fixtures.py  # builds wc2026_fixtures.csv
 │   └── smoke_test.py         # full pipeline on synthetic data
-├── tests/                  # pytest suite (48 tests)
+├── tests/                  # pytest suite (74 tests)
 ├── data/
 │   ├── raw/                # input CSVs (only wc2026_fixtures.csv is committed)
 │   └── processed/          # pipeline outputs (gitignored)
@@ -189,7 +189,7 @@ PYTHONPATH=. python scripts/smoke_test.py
 **Tests:**
 
 ```bash
-python -m pytest tests/ -q            # 81 tests
+python -m pytest tests/ -q            # 74 tests
 ```
 
 ---
