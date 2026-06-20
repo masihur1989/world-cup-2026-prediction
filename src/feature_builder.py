@@ -264,3 +264,81 @@ def build_features(
 
 def save_features(features: pd.DataFrame, path: str = "data/processed/features.csv") -> None:
     features.to_csv(path, index=False)
+
+
+class MatchupFeatureProvider:
+    """
+    Builds a single-row feature vector (FEATURE_COLS order) for any team pair,
+    using each team's latest state as of `as_of_date`. Reuses the same logic as
+    build_features so group and knockout matchups are scored identically.
+
+    Poisson features (lambda_a, p_win_poisson) get neutral defaults unless a
+    PoissonGoalModel is supplied, in which case they are computed per row.
+    """
+
+    def __init__(self, elo_history, results, shootouts, as_of_date,
+                 poisson_model=None):
+        self.elo_history = elo_history
+        self.results = results
+        self.as_of_date = pd.Timestamp(as_of_date)
+        self.penalty_rates = compute_penalty_win_rates(shootouts)
+        self.poisson_model = poisson_model
+
+        tp = build_team_perspective(results)
+        self._tp_by_team = {team: grp.sort_values("date")
+                            for team, grp in tp.groupby("team")}
+
+    def _stat(self, team, col):
+        grp = self._tp_by_team.get(team)
+        if grp is None:
+            return np.nan
+        prior = grp[grp["date"] < self.as_of_date]
+        if prior.empty:
+            return np.nan
+        return prior.iloc[-1][col]
+
+    def row(self, team_a: str, team_b: str) -> pd.DataFrame:
+        date = self.as_of_date
+        elo_a = get_elo_on_date(self.elo_history, team_a, date)
+        elo_b = get_elo_on_date(self.elo_history, team_b, date)
+        rank_a = get_rank_on_date(self.elo_history, date, team_a)
+        rank_b = get_rank_on_date(self.elo_history, date, team_b)
+
+        form_a = self._stat(team_a, "form"); form_b = self._stat(team_b, "form")
+        gsa = self._stat(team_a, "goals_scored_avg"); gsb = self._stat(team_b, "goals_scored_avg")
+        gca = self._stat(team_a, "goals_conceded_avg"); gcb = self._stat(team_b, "goals_conceded_avg")
+        last_a = self._stat(team_a, "last_match_date"); last_b = self._stat(team_b, "last_match_date")
+        rest_a = (date - last_a).days if pd.notna(last_a) else 30
+        rest_b = (date - last_b).days if pd.notna(last_b) else 30
+
+        h2h_wr, h2h_gd = _h2h_stats(self.results, team_a, team_b, date)
+
+        feat = {
+            "elo_diff":             elo_a - elo_b,
+            "fifa_rank_diff":       rank_b - rank_a,
+            "form_A":               form_a if pd.notna(form_a) else 0.0,
+            "form_B":               form_b if pd.notna(form_b) else 0.0,
+            "goals_scored_avg_A":   gsa if pd.notna(gsa) else 1.5,
+            "goals_scored_avg_B":   gsb if pd.notna(gsb) else 1.5,
+            "goals_conceded_avg_A": gca if pd.notna(gca) else 1.2,
+            "goals_conceded_avg_B": gcb if pd.notna(gcb) else 1.2,
+            "h2h_win_rate_A":       h2h_wr,
+            "h2h_goal_diff":        h2h_gd,
+            "squad_value_ratio":    0.0,
+            "stage_weight":         3,
+            "rest_days_diff":       rest_a - rest_b,
+            "penalty_win_rate_A":   self.penalty_rates.get(team_a, 0.5),
+            **_one_hot_conf(team_a, "conf_A"),
+            **_one_hot_conf(team_b, "conf_B"),
+        }
+        if self.poisson_model is not None:
+            la, lb = self.poisson_model.predict_lambda(pd.Series(feat))
+            pw, _, _ = self.poisson_model.simulate_match(la, lb, n=20_000)
+            feat["lambda_a"] = la
+            feat["p_win_poisson"] = pw
+        else:
+            feat["lambda_a"] = 1.5
+            feat["p_win_poisson"] = 0.45
+
+        from src.xgboost_model import FEATURE_COLS
+        return pd.DataFrame([feat])[FEATURE_COLS]
