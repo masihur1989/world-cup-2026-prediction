@@ -148,13 +148,37 @@ python -m src.pipeline --start-from xgb_3class   # re-run from a chosen stage on
 > zero model calls — a full 100k run completes in ~25 seconds. Lower `--simulations 10000` for
 > even faster, still-stable estimates while iterating.
 
+### Fixture-driven prediction & dated snapshots
+
+The simulator is driven entirely by `data/raw/wc2026_fixtures.csv` — real groups, the
+official Round-of-32 slot pairings, and standard-adjacency R16→Final. Each run is saved as a
+**dated snapshot** under `data/processed/predictions/` (`{date}__{label}.csv` plus a
+`__bracket.csv`), indexed in `predictions/index.csv`.
+
+**Locked pre-tournament baseline** (committed): `2026-06-10__pre_tournament`, simulated with no
+real results.
+
+**Round-by-round updates.** As each round finishes, fill in that round's outcomes in
+`data/raw/wc2026_actual_results.csv` (`stage,team_a,team_b,score_a,score_b,winner`). Those
+results are pinned (not re-simulated), and a new snapshot is written for the remaining matches —
+earlier snapshots stay immutable:
+
+```bash
+python -m src.pipeline --start-from simulate --as-of 2026-06-28 --label after_groups
+```
+
+`--as-of DATE` sets the snapshot date and the as-of date for matchup features; `--label TEXT`
+names it. Re-running an existing `date/label` requires `--force`.
+
 **Launch the dashboard:**
 
 ```bash
 streamlit run app/dashboard.py        # http://localhost:8501
 ```
 
-Four views: Match Predictor · Champion Probabilities · Group Stage Standings · SHAP Feature Importance.
+Five views: Match Predictor · Champion Probabilities · Group Stage Standings (real advancement
+odds) · **Tournament Bracket** (probabilistic — each match shows the teams most likely to reach
+it) · SHAP Feature Importance. A sidebar selector switches between saved snapshots.
 
 **Smoke test** (no Kaggle data needed — runs every stage on synthetic data):
 
@@ -165,7 +189,7 @@ PYTHONPATH=. python scripts/smoke_test.py
 **Tests:**
 
 ```bash
-python -m pytest tests/ -q            # 51 tests
+python -m pytest tests/ -q            # 81 tests
 ```
 
 ---
