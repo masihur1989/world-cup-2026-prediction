@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-20
 **Status:** Approved (pending spec review)
-**Scope:** Make the Monte Carlo simulator a real WC 2026 prediction driven by `wc2026_fixtures.csv`, with dated prediction snapshots and round-by-round updates from real results.
+**Scope:** Make the Monte Carlo simulator a real WC 2026 prediction driven by `wc2026_fixtures.csv`, with dated prediction snapshots, round-by-round updates from real results, and a probabilistic tournament-bracket view.
 
 ---
 
@@ -14,6 +14,7 @@ Today the simulator uses a hardcoded `WC2026_GROUPS` dict, a generated round-rob
 - The Round of 32 follows the CSV's official slot pairings; R16→Final follow a deterministic bracket.
 - Group-advancement probabilities are tallied from the simulation (no placeholders).
 - A locked **pre-tournament** snapshot (dated `2026-06-10`) is stored, and later snapshots condition on real results as each round completes.
+- The dashboard shows a **probabilistic bracket**: the fixed knockout structure with each match annotated by the teams most likely to reach it.
 
 ---
 
@@ -125,13 +126,19 @@ TournamentSimulator(model, penalty_rates, tournament, matchup_features, known_re
 
 `known_results` (default `None`) is a mapping of already-decided matches to outcomes. For any match whose participants/slot are present, the recorded result is used verbatim instead of being simulated. Built from the actuals store (§8). This is the mechanism for conditioning later snapshots on reality; with `None`, everything is simulated (the pre-tournament baseline).
 
+### Bracket-position occupancy
+
+The knockout tree is a fixed set of positions: 16 R32 matches → 8 R16 → 4 QF → 2 SF → 1 Final (positions identified by `(round, match_index)` via the deterministic adjacency, so position is stable across simulations). Each simulation, the simulator records which two teams occupy each match position. Across all runs this yields, per position, the probability each team appears there — i.e. its probability of *reaching* that match.
+
+`run()` returns this as a second result alongside the per-team table: a long-form bracket frame with columns `round, match_index, team, p_reach` (probability that team is one of the two participants in that match). Only this aggregate is kept — individual simulated brackets are not stored.
+
 ---
 
 ## 8. Prediction snapshots & actual results
 
 **Snapshot store:** `data/processed/predictions/`
-- `save_prediction_snapshot(df, as_of_date, label)` → writes `{as_of_date}__{label}.csv` and appends to `predictions/index.csv` (`as_of_date, label, n_simulations, generated_at, path`).
-- The newest snapshot is also copied to `data/processed/simulation_results.csv` (the dashboard's default "latest").
+- `save_prediction_snapshot(team_df, bracket_df, as_of_date, label)` → writes the per-team table `{as_of_date}__{label}.csv` **and** the bracket frame `{as_of_date}__{label}__bracket.csv`, and appends to `predictions/index.csv` (`as_of_date, label, n_simulations, generated_at, path, bracket_path`).
+- The newest snapshot's two files are also copied to `data/processed/simulation_results.csv` and `data/processed/bracket.csv` (the dashboard's defaults).
 - **Immutability:** an existing snapshot file is never overwritten; re-running the same `as_of_date/label` requires `--force`.
 
 **Locked baseline:** first run produces `2026-06-10__pre_tournament.csv` with `known_results=None`.
@@ -159,7 +166,8 @@ python -m src.pipeline --start-from simulate --as-of 2026-06-28 --label after_gr
 ## 10. Dashboard
 
 - **Group Stage Standings:** show real `p_advance` (and `p_group_winner`) per team from the snapshot — placeholder formula removed.
-- **Snapshot selector:** a control to pick which snapshot to view (from `predictions/index.csv`), defaulting to the latest; option to compare a snapshot's `p_champion` against the `pre_tournament` baseline.
+- **Tournament Bracket (new tab):** renders the fixed knockout structure (R32 → R16 → QF → SF → Final) as a left-to-right bracket of match boxes. Each box lists the **top-N** teams (default 3) most likely to occupy that match, with their `p_reach` percentages, read from the snapshot's bracket frame. Built with Plotly shapes + annotations (or an HTML/SVG layout); no model code at runtime. A `top_n` control adjusts how many teams show per box.
+- **Snapshot selector:** a control to pick which snapshot to view (from `predictions/index.csv`), defaulting to the latest; drives both the per-team views and the bracket. Option to compare a snapshot's `p_champion` against the `pre_tournament` baseline.
 - Champion heatmap and other tabs read CSV-derived groups, staying consistent.
 
 ---
@@ -169,6 +177,7 @@ python -m src.pipeline --start-from simulate --as-of 2026-06-28 --label after_gr
 - **Parser:** group derivation (12 groups × 4), name normalization (`USA`→`United States`, etc.), R32 slot parsing (winner/runner-up/third-place with eligible sets).
 - **Third-place assignment:** every assigned team's group is within its slot's eligible set; 8 slots filled.
 - **Bracket:** adjacency reduces 32→1; one champion; finalists/semifinalists populated.
+- **Bracket occupancy:** frame has the right positions per round (16/8/4/2/1); for each `(round, match_index)` the team `p_reach` values sum to ~2 (two participants per match); Final `p_reach` per team equals its `p_finalist`.
 - **Advancement tallies:** `p_advance` ≈ `p_group_winner + p_runner_up + best-third share`; probabilities in [0,1]; champion probs sum to ~1.
 - **Known-results override:** a pinned match always yields the recorded winner; pinned group results fix that group's standings.
 - **Snapshots:** `save_prediction_snapshot` writes the file + index row; existing snapshot not overwritten without force.
