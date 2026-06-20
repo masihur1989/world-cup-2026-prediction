@@ -28,6 +28,25 @@ CONF_COLORS = {
     "OFC":       "#9467bd",
 }
 
+def list_snapshots(index_path="data/processed/predictions/index.csv"):
+    """Return snapshots (newest first) from the predictions index, or []."""
+    from pathlib import Path
+    if not Path(index_path).exists():
+        return []
+    idx = pd.read_csv(index_path)
+    idx = idx.sort_values("generated_at", ascending=False)
+    return idx.to_dict("records")
+
+
+def bracket_boxes(bracket_df, top_n=3):
+    """Map (round, match_index) -> list of (team, p_reach) top-N descending."""
+    boxes = {}
+    for (rnd, mi), grp in bracket_df.groupby(["round", "match_index"]):
+        top = grp.sort_values("p_reach", ascending=False).head(top_n)
+        boxes[(rnd, mi)] = list(zip(top["team"], top["p_reach"]))
+    return boxes
+
+
 @st.cache_data
 def load_sim_results():
     return pd.read_csv("data/processed/simulation_results.csv")
@@ -46,6 +65,13 @@ def load_shap():
 @st.cache_data
 def load_fixtures():
     return pd.read_csv("data/raw/wc2026_fixtures.csv", parse_dates=["date"])
+
+@st.cache_data
+def load_bracket():
+    try:
+        return pd.read_csv("data/processed/bracket.csv")
+    except FileNotFoundError:
+        return None
 
 
 def tab_match_predictor(features: pd.DataFrame, sim_results: pd.DataFrame):
@@ -162,29 +188,44 @@ def tab_champion_probabilities(sim_results: pd.DataFrame):
     st.plotly_chart(fig, use_container_width=True)
 
 
+def tab_bracket(bracket_df):
+    st.header("Tournament Bracket (probabilistic)")
+    if bracket_df is None or bracket_df.empty:
+        st.warning("No bracket data yet. Run the pipeline simulate stage.")
+        return
+    top_n = st.slider("Teams shown per match", 1, 4, 3)
+    boxes = bracket_boxes(bracket_df, top_n=top_n)
+    round_order = ["R32", "R16", "QF", "SF", "Final"]
+    cols = st.columns(len(round_order))
+    for col, rnd in zip(cols, round_order):
+        with col:
+            st.subheader(rnd)
+            match_indices = sorted({mi for (r, mi) in boxes if r == rnd})
+            for mi in match_indices:
+                lines = "<br>".join(f"{t} · {p:.0%}" for t, p in boxes[(rnd, mi)])
+                st.markdown(
+                    f"<div style='border:1px solid #888;border-radius:6px;"
+                    f"padding:6px;margin-bottom:6px;font-size:12px'>{lines}</div>",
+                    unsafe_allow_html=True,
+                )
+
+
 def tab_group_standings(sim_results: pd.DataFrame):
     st.header("Simulated Group Stage Standings")
-    from src.simulator import WC2026_GROUPS  # type: ignore
+    from src.fixtures_bracket import load_tournament
+    groups = load_tournament("data/raw/wc2026_fixtures.csv").groups
 
-    groups = sorted(WC2026_GROUPS.keys())
     cols = st.columns(3)
-    for i, group in enumerate(groups):
-        teams = WC2026_GROUPS[group]
-        group_df = sim_results[sim_results["team"].isin(teams)][
-            ["team", "p_champion", "confederation"]
-        ].sort_values("p_champion", ascending=False)
-        group_df["P(advance)"] = (
-            group_df["p_champion"].rank(ascending=False).apply(
-                lambda r: f"{max(0.3, 1 - 0.2 * (r-1)):.0%}"
-            )
-        )
+    for i, group in enumerate(sorted(groups.keys())):
+        teams = groups[group]
+        gdf = sim_results[sim_results["team"].isin(teams)].copy()
+        gdf = gdf.sort_values("p_advance", ascending=False)
+        gdf["P(advance)"] = (gdf["p_advance"] * 100).round(0).astype(int).astype(str) + "%"
+        gdf["P(win grp)"] = (gdf["p_group_winner"] * 100).round(0).astype(int).astype(str) + "%"
         with cols[i % 3]:
             st.markdown(f"**Group {group}**")
-            st.dataframe(
-                group_df[["team", "P(advance)"]].reset_index(drop=True),
-                hide_index=True,
-                use_container_width=True,
-            )
+            st.dataframe(gdf[["team", "P(advance)", "P(win grp)"]].reset_index(drop=True),
+                         hide_index=True, use_container_width=True)
 
 
 def tab_shap(shap_df):
@@ -215,17 +256,24 @@ def main():
     st.title("FIFA World Cup 2026 — AI Prediction System")
     st.caption("All predictions based on historical data through 2024. No live data sources.")
 
-    sim_results = load_sim_results()
-    features    = load_features()
-    shap_df     = load_shap()
+    snaps = list_snapshots()
+    if snaps:
+        labels = [f"{s['as_of_date']} · {s['label']}" for s in snaps]
+        choice = st.sidebar.selectbox("Prediction snapshot", labels, index=0)
+        chosen = snaps[labels.index(choice)]
+        sim_results = pd.read_csv(f"data/processed/predictions/{chosen['path']}")
+        bracket_df = pd.read_csv(f"data/processed/predictions/{chosen['bracket_path']}")
+    else:
+        sim_results = load_sim_results()
+        bracket_df = load_bracket()
 
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "Match Predictor",
-        "Champion Probabilities",
-        "Group Stage Standings",
-        "SHAP Feature Importance",
+    features = load_features()
+    shap_df = load_shap()
+
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "Match Predictor", "Champion Probabilities", "Group Stage Standings",
+        "Tournament Bracket", "SHAP Feature Importance",
     ])
-
     with tab1:
         tab_match_predictor(features, sim_results)
     with tab2:
@@ -233,6 +281,8 @@ def main():
     with tab3:
         tab_group_standings(sim_results)
     with tab4:
+        tab_bracket(bracket_df)
+    with tab5:
         tab_shap(shap_df)
 
 
