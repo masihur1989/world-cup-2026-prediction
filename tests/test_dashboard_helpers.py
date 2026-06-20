@@ -24,3 +24,18 @@ def test_bracket_boxes_top_n():
     boxes = bracket_boxes(bracket, top_n=2)
     cell = boxes[("R32", 0)]
     assert cell == [("Brazil", 0.9), ("Serbia", 0.7)]
+
+
+def test_team_flag_emoji():
+    from app.dashboard import team_flag
+    assert team_flag("Brazil") == "🇧🇷"
+    assert team_flag("Germany") == "🇩🇪"
+    assert team_flag("Unknownland") == ""
+
+
+def test_all_fixture_teams_have_flags():
+    from app.dashboard import team_flag
+    from src.fixtures_bracket import load_tournament
+    teams = {t for g in load_tournament("data/raw/wc2026_fixtures.csv").groups.values() for t in g}
+    missing = sorted(t for t in teams if not team_flag(t))
+    assert missing == [], f"teams without flags: {missing}"

@@ -28,6 +28,44 @@ CONF_COLORS = {
     "OFC":       "#9467bd",
 }
 
+# Canonical team name -> ISO-3166 alpha-2 code, for emoji flags. England and
+# Scotland are not ISO countries; their flag emoji are handled in _FLAG_OVERRIDE.
+TEAM_ISO2 = {
+    "Czechia": "CZ", "Mexico": "MX", "South Africa": "ZA", "South Korea": "KR",
+    "Bosnia and Herzegovina": "BA", "Canada": "CA", "Qatar": "QA", "Switzerland": "CH",
+    "Brazil": "BR", "Haiti": "HT", "Morocco": "MA",
+    "Australia": "AU", "Paraguay": "PY", "Turkey": "TR", "United States": "US",
+    "Curacao": "CW", "Ecuador": "EC", "Germany": "DE", "Ivory Coast": "CI",
+    "Japan": "JP", "Netherlands": "NL", "Sweden": "SE", "Tunisia": "TN",
+    "Belgium": "BE", "Egypt": "EG", "Iran": "IR", "New Zealand": "NZ",
+    "Cape Verde": "CV", "Saudi Arabia": "SA", "Spain": "ES", "Uruguay": "UY",
+    "France": "FR", "Iraq": "IQ", "Norway": "NO", "Senegal": "SN",
+    "Algeria": "DZ", "Argentina": "AR", "Austria": "AT", "Jordan": "JO",
+    "Colombia": "CO", "DR Congo": "CD", "Portugal": "PT", "Uzbekistan": "UZ",
+    "Croatia": "HR", "Ghana": "GH", "Panama": "PA",
+}
+# Subdivision flags (tag sequences) for non-ISO members.
+_FLAG_OVERRIDE = {
+    "England": "\U0001F3F4\U000E0067\U000E0062\U000E0065\U000E006E\U000E0067\U000E007F",
+    "Scotland": "\U0001F3F4\U000E0067\U000E0062\U000E0073\U000E0063\U000E0074\U000E007F",
+}
+
+
+def team_flag(team: str) -> str:
+    """Return the emoji flag for a team, or '' if unknown."""
+    if team in _FLAG_OVERRIDE:
+        return _FLAG_OVERRIDE[team]
+    iso2 = TEAM_ISO2.get(team)
+    if not iso2:
+        return ""
+    return "".join(chr(0x1F1E6 + ord(c) - ord("A")) for c in iso2.upper())
+
+
+def with_flag(team: str) -> str:
+    """Return 'FLAG Team' (or just 'Team' if no flag known)."""
+    f = team_flag(team)
+    return f"{f} {team}".strip()
+
 def list_snapshots(index_path="data/processed/predictions/index.csv"):
     """Return snapshots (newest first) from the predictions index, or []."""
     from pathlib import Path
@@ -161,7 +199,7 @@ def tab_champion_probabilities(sim_results: pd.DataFrame):
                 team = teams[slot]
                 p = p_by_team.get(team, 0.0)
                 z_row.append(p)
-                lab_row.append(f"{team}<br>{p:.1%}")
+                lab_row.append(f"{with_flag(team)}<br>{p:.1%}")
                 cd_row.append(team)
             else:
                 z_row.append(None); lab_row.append(""); cd_row.append("")
@@ -203,7 +241,7 @@ def tab_bracket(bracket_df):
             st.subheader(rnd)
             match_indices = sorted({mi for (r, mi) in boxes if r == rnd})
             for mi in match_indices:
-                lines = "<br>".join(f"{t} · {p:.0%}" for t, p in boxes[(rnd, mi)])
+                lines = "<br>".join(f"{with_flag(t)} · {p:.0%}" for t, p in boxes[(rnd, mi)])
                 st.markdown(
                     f"<div style='border:1px solid #888;border-radius:6px;"
                     f"padding:6px;margin-bottom:6px;font-size:12px'>{lines}</div>",
@@ -223,9 +261,10 @@ def tab_group_standings(sim_results: pd.DataFrame):
         gdf = gdf.sort_values("p_advance", ascending=False)
         gdf["P(advance)"] = (gdf["p_advance"] * 100).round(0).astype(int).astype(str) + "%"
         gdf["P(win grp)"] = (gdf["p_group_winner"] * 100).round(0).astype(int).astype(str) + "%"
+        gdf["Team"] = gdf["team"].map(with_flag)
         with cols[i % 3]:
             st.markdown(f"**Group {group}**")
-            st.dataframe(gdf[["team", "P(advance)", "P(win grp)"]].reset_index(drop=True),
+            st.dataframe(gdf[["Team", "P(advance)", "P(win grp)"]].reset_index(drop=True),
                          hide_index=True, use_container_width=True)
 
 
