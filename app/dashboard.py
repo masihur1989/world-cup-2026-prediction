@@ -2,6 +2,15 @@
 Streamlit dashboard — reads only from data/processed/, no model code at runtime.
 Run: streamlit run app/dashboard.py
 """
+import sys
+from pathlib import Path
+
+# Ensure the project root is importable when Streamlit runs this script directly
+# (Streamlit sets the working dir to app/, so `src` isn't on sys.path otherwise).
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
+
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -105,35 +114,52 @@ def tab_match_predictor(features: pd.DataFrame, sim_results: pd.DataFrame):
 
 
 def tab_champion_probabilities(sim_results: pd.DataFrame):
-    st.header("Champion Probabilities")
-    df = sim_results.copy()
-    df = df.sort_values("p_champion", ascending=True)
-    df["color"] = df["confederation"].map(CONF_COLORS).fillna("#888888")
+    from src.simulator import WC2026_GROUPS  # type: ignore
 
-    fig = go.Figure(go.Bar(
-        x=df["p_champion"],
-        y=df["team"],
-        orientation="h",
-        marker_color=df["color"],
-        text=[f"{p:.1%}" for p in df["p_champion"]],
-        textposition="outside",
+    st.header("Champion Probabilities")
+    st.caption("Each cell is a team, shaded by its simulated probability of winning the tournament.")
+
+    p_by_team = dict(zip(sim_results["team"], sim_results["p_champion"]))
+    groups = sorted(WC2026_GROUPS.keys())
+    max_slots = max(len(t) for t in WC2026_GROUPS.values())
+
+    # Build a group (rows) × slot (cols) grid of championship probabilities,
+    # with each team sorted within its group by probability (strongest first).
+    z, labels, customdata = [], [], []
+    for g in groups:
+        teams = sorted(WC2026_GROUPS[g], key=lambda t: p_by_team.get(t, 0.0), reverse=True)
+        z_row, lab_row, cd_row = [], [], []
+        for slot in range(max_slots):
+            if slot < len(teams):
+                team = teams[slot]
+                p = p_by_team.get(team, 0.0)
+                z_row.append(p)
+                lab_row.append(f"{team}<br>{p:.1%}")
+                cd_row.append(team)
+            else:
+                z_row.append(None); lab_row.append(""); cd_row.append("")
+        z.append(z_row); labels.append(lab_row); customdata.append(cd_row)
+
+    fig = go.Figure(go.Heatmap(
+        z=z,
+        x=[f"#{i+1}" for i in range(max_slots)],
+        y=[f"Group {g}" for g in groups],
+        text=labels,
+        texttemplate="%{text}",
+        textfont=dict(size=11),
+        customdata=customdata,
+        hovertemplate="%{customdata}<br>P(champion): %{z:.2%}<extra></extra>",
+        colorscale="YlOrRd",
+        colorbar=dict(title="P(champion)", tickformat=".0%"),
+        hoverongaps=False,
     ))
     fig.update_layout(
-        height=max(400, 20 * len(df)),
-        xaxis=dict(title="P(Champion)", tickformat=".0%"),
-        yaxis=dict(title=""),
-        showlegend=False,
+        height=max(400, 34 * len(groups)),
+        xaxis=dict(title="Rank within group", side="top"),
+        yaxis=dict(title="", autorange="reversed"),
+        margin=dict(l=80, r=20, t=40, b=20),
     )
     st.plotly_chart(fig, use_container_width=True)
-
-    # Legend
-    cols = st.columns(len(CONF_COLORS))
-    for col, (conf, color) in zip(cols, CONF_COLORS.items()):
-        col.markdown(
-            f"<div style='background:{color};padding:4px;border-radius:4px;"
-            f"color:white;text-align:center;font-size:12px'>{conf}</div>",
-            unsafe_allow_html=True,
-        )
 
 
 def tab_group_standings(sim_results: pd.DataFrame):
