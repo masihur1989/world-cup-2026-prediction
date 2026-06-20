@@ -1,0 +1,105 @@
+team_a,team_b,stage,date,venue
+Mexico,South Africa,Group A,2026-06-11,Estadio Azteca - Mexico City
+South Korea,Czechia,Group A,2026-06-11,Estadio Akron - Guadalajara
+Canada,Bosnia and Herzegovina,Group B,2026-06-12,BMO Field - Toronto
+USA,Paraguay,Group D,2026-06-12,SoFi Stadium - Los Angeles
+Australia,Turkiye,Group D,2026-06-13,BC Place - Vancouver
+Qatar,Switzerland,Group B,2026-06-13,Levi's Stadium - San Francisco
+Brazil,Morocco,Group C,2026-06-13,MetLife Stadium - New York New Jersey
+Haiti,Scotland,Group C,2026-06-13,Gillette Stadium - Boston
+Germany,Curacao,Group E,2026-06-14,NRG Stadium - Houston
+Netherlands,Japan,Group F,2026-06-14,AT&T Stadium - Dallas
+Ivory Coast,Ecuador,Group E,2026-06-14,Lincoln Financial Field - Philadelphia
+Sweden,Tunisia,Group F,2026-06-14,Estadio BBVA - Monterrey
+Spain,Cape Verde,Group H,2026-06-15,Mercedes-Benz Stadium - Atlanta
+Belgium,Egypt,Group G,2026-06-15,Lumen Field - Seattle
+Saudi Arabia,Uruguay,Group H,2026-06-15,Hard Rock Stadium - Miami
+Iran,New Zealand,Group G,2026-06-15,SoFi Stadium - Los Angeles
+France,Senegal,Group I,2026-06-16,MetLife Stadium - New York New Jersey
+Iraq,Norway,Group I,2026-06-16,Gillette Stadium - Boston
+Argentina,Algeria,Group J,2026-06-16,Arrowhead Stadium - Kansas City
+Austria,Jordan,Group J,2026-06-16,Levi's Stadium - San Francisco
+Portugal,DR Congo,Group K,2026-06-17,NRG Stadium - Houston
+England,Croatia,Group L,2026-06-17,AT&T Stadium - Dallas
+Uzbekistan,Colombia,Group K,2026-06-17,Estadio Azteca - Mexico City
+Ghana,Panama,Group L,2026-06-17,BMO Field - Toronto
+Czechia,South Africa,Group A,2026-06-18,Mercedes-Benz Stadium - Atlanta
+Switzerland,Bosnia and Herzegovina,Group B,2026-06-18,SoFi Stadium - Los Angeles
+Mexico,South Korea,Group A,2026-06-18,Estadio Akron - Guadalajara
+Canada,Qatar,Group B,2026-06-18,BC Place - Vancouver
+Scotland,Morocco,Group C,2026-06-19,Gillette Stadium - Boston
+Brazil,Haiti,Group C,2026-06-19,Lincoln Financial Field - Philadelphia
+USA,Australia,Group D,2026-06-19,Lumen Field - Seattle
+Turkiye,Paraguay,Group D,2026-06-19,Levi's Stadium - San Francisco
+Germany,Ivory Coast,Group E,2026-06-20,BMO Field - Toronto
+Netherlands,Sweden,Group F,2026-06-20,NRG Stadium - Houston
+Ecuador,Curacao,Group E,2026-06-20,Arrowhead Stadium - Kansas City
+Tunisia,Japan,Group F,2026-06-20,Estadio BBVA - Monterrey
+Spain,Saudi Arabia,Group H,2026-06-21,Mercedes-Benz Stadium - Atlanta
+Belgium,Iran,Group G,2026-06-21,SoFi Stadium - Los Angeles
+Uruguay,Cape Verde,Group H,2026-06-21,Hard Rock Stadium - Miami
+New Zealand,Egypt,Group G,2026-06-21,BC Place - Vancouver
+France,Iraq,Group I,2026-06-22,Lincoln Financial Field - Philadelphia
+Argentina,Austria,Group J,2026-06-22,AT&T Stadium - Dallas
+Norway,Senegal,Group I,2026-06-22,MetLife Stadium - New York New Jersey
+Jordan,Algeria,Group J,2026-06-22,Levi's Stadium - San Francisco
+Portugal,Uzbekistan,Group K,2026-06-23,NRG Stadium - Houston
+England,Ghana,Group L,2026-06-23,Gillette Stadium - Boston
+Colombia,DR Congo,Group K,2026-06-23,Estadio Akron - Guadalajara
+Panama,Croatia,Group L,2026-06-23,BMO Field - Toronto
+Czechia,Mexico,Group A,2026-06-24,Estadio Azteca - Mexico City
+South Africa,South Korea,Group A,2026-06-24,Estadio BBVA - Monterrey
+Switzerland,Canada,Group B,2026-06-24,BC Place - Vancouver
+Bosnia and Herzegovina,Qatar,Group B,2026-06-24,Lumen Field - Seattle
+Scotland,Brazil,Group C,2026-06-24,Hard Rock Stadium - Miami
+Morocco,Haiti,Group C,2026-06-24,Mercedes-Benz Stadium - Atlanta
+Ecuador,Germany,Group E,2026-06-25,MetLife Stadium - New York New Jersey
+Curacao,Ivory Coast,Group E,2026-06-25,Lincoln Financial Field - Philadelphia
+Japan,Sweden,Group F,2026-06-25,AT&T Stadium - Dallas
+Tunisia,Netherlands,Group F,2026-06-25,Arrowhead Stadium - Kansas City
+Turkiye,USA,Group D,2026-06-25,SoFi Stadium - Los Angeles
+Paraguay,Australia,Group D,2026-06-25,Levi's Stadium - San Francisco
+Egypt,Iran,Group G,2026-06-26,Lumen Field - Seattle
+New Zealand,Belgium,Group G,2026-06-26,BC Place - Vancouver
+Cape Verde,Saudi Arabia,Group H,2026-06-26,NRG Stadium - Houston
+Uruguay,Spain,Group H,2026-06-26,Estadio Akron - Guadalajara
+Norway,France,Group I,2026-06-26,Gillette Stadium - Boston
+Senegal,Iraq,Group I,2026-06-26,BMO Field - Toronto
+Algeria,Austria,Group J,2026-06-27,Arrowhead Stadium - Kansas City
+Jordan,Argentina,Group J,2026-06-27,AT&T Stadium - Dallas
+Colombia,Portugal,Group K,2026-06-27,Hard Rock Stadium - Miami
+DR Congo,Uzbekistan,Group K,2026-06-27,Mercedes-Benz Stadium - Atlanta
+Panama,England,Group L,2026-06-27,MetLife Stadium - New York New Jersey
+Croatia,Ghana,Group L,2026-06-27,Lincoln Financial Field - Philadelphia
+Runner-up A,Runner-up B,Round of 32,2026-06-28,SoFi Stadium - Los Angeles
+Winner C,Runner-up F,Round of 32,2026-06-29,NRG Stadium - Houston
+Winner E,3rd Place (A/B/C/D/F),Round of 32,2026-06-29,Gillette Stadium - Boston
+Winner F,Runner-up C,Round of 32,2026-06-29,Estadio BBVA - Monterrey
+Runner-up E,Runner-up I,Round of 32,2026-06-30,AT&T Stadium - Dallas
+Winner I,3rd Place (C/D/F/G/H),Round of 32,2026-06-30,MetLife Stadium - New York New Jersey
+Winner A,3rd Place (C/E/F/H/I),Round of 32,2026-06-30,Estadio Azteca - Mexico City
+Winner L,3rd Place (E/H/I/J/K),Round of 32,2026-07-01,Mercedes-Benz Stadium - Atlanta
+Winner G,3rd Place (A/E/H/I/J),Round of 32,2026-07-01,Lumen Field - Seattle
+Winner D,3rd Place (B/E/F/I/J),Round of 32,2026-07-01,Levi's Stadium - San Francisco
+Winner H,Runner-up J,Round of 32,2026-07-02,SoFi Stadium - Los Angeles
+Runner-up K,Runner-up L,Round of 32,2026-07-02,BMO Field - Toronto
+Winner B,3rd Place (E/F/G/I/J),Round of 32,2026-07-02,BC Place - Vancouver
+Runner-up D,Runner-up G,Round of 32,2026-07-03,AT&T Stadium - Dallas
+Winner J,Runner-up H,Round of 32,2026-07-03,Hard Rock Stadium - Miami
+Winner K,3rd Place (D/E/I/J/L),Round of 32,2026-07-03,Arrowhead Stadium - Kansas City
+M89 Winner,M90 Winner,Round of 16,2026-07-04,Lincoln Financial Field - Philadelphia
+M89 Winner,M90 Winner,Round of 16,2026-07-04,NRG Stadium - Houston
+M91 Winner,M92 Winner,Round of 16,2026-07-05,MetLife Stadium - New York New Jersey
+M91 Winner,M92 Winner,Round of 16,2026-07-05,Estadio Azteca - Mexico City
+M93 Winner,M94 Winner,Round of 16,2026-07-06,AT&T Stadium - Dallas
+M93 Winner,M94 Winner,Round of 16,2026-07-06,Lumen Field - Seattle
+M95 Winner,M96 Winner,Round of 16,2026-07-07,Mercedes-Benz Stadium - Atlanta
+M95 Winner,M96 Winner,Round of 16,2026-07-07,BC Place - Vancouver
+QF1 Winner,QF2 Winner,Quarter-final,2026-07-09,Gillette Stadium - Boston
+QF1 Winner,QF2 Winner,Quarter-final,2026-07-10,SoFi Stadium - Los Angeles
+QF3 Winner,QF4 Winner,Quarter-final,2026-07-11,Hard Rock Stadium - Miami
+QF3 Winner,QF4 Winner,Quarter-final,2026-07-11,Arrowhead Stadium - Kansas City
+SF1 Winner,SF2 Winner,Semi-final,2026-07-14,AT&T Stadium - Dallas
+SF1 Winner,SF2 Winner,Semi-final,2026-07-15,Mercedes-Benz Stadium - Atlanta
+SF1 Loser,SF2 Loser,Third Place Play-off,2026-07-18,Hard Rock Stadium - Miami
+SF1 Winner,SF2 Winner,Final,2026-07-19,MetLife Stadium - New York New Jersey
