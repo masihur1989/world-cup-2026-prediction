@@ -140,20 +140,21 @@ def tab_match_predictor(features: pd.DataFrame, sim_results: pd.DataFrame):
 
 
 def tab_champion_probabilities(sim_results: pd.DataFrame):
-    from src.simulator import WC2026_GROUPS  # type: ignore
+    from src.fixtures_bracket import load_tournament
 
     st.header("Champion Probabilities")
     st.caption("Each cell is a team, shaded by its simulated probability of winning the tournament.")
 
+    wc_groups = load_tournament("data/raw/wc2026_fixtures.csv").groups
     p_by_team = dict(zip(sim_results["team"], sim_results["p_champion"]))
-    groups = sorted(WC2026_GROUPS.keys())
-    max_slots = max(len(t) for t in WC2026_GROUPS.values())
+    groups = sorted(wc_groups.keys())
+    max_slots = max(len(t) for t in wc_groups.values())
 
     # Build a group (rows) × slot (cols) grid of championship probabilities,
     # with each team sorted within its group by probability (strongest first).
     z, labels, customdata = [], [], []
     for g in groups:
-        teams = sorted(WC2026_GROUPS[g], key=lambda t: p_by_team.get(t, 0.0), reverse=True)
+        teams = sorted(wc_groups[g], key=lambda t: p_by_team.get(t, 0.0), reverse=True)
         z_row, lab_row, cd_row = [], [], []
         for slot in range(max_slots):
             if slot < len(teams):
