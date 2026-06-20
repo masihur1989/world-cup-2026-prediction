@@ -80,3 +80,44 @@ def load_tournament(path: str = "data/raw/wc2026_fixtures.csv") -> Tournament:
                  for _, r in r32.iterrows()]
 
     return Tournament(groups=groups, group_matches=group_matches, r32_slots=r32_slots)
+
+
+def assign_third_place(
+    slot_eligibles: list[frozenset[str]],
+    best_thirds: list[tuple[str, str]],
+) -> list[str]:
+    """
+    Assign qualifying 3rd-place teams to R32 third-place slots, respecting each
+    slot's eligible-group set. Returns a list of team names aligned to
+    slot_eligibles. Uses backtracking (assigns the most-constrained slot first)
+    so the result is deterministic. Raises ValueError if no valid assignment.
+    """
+    group_of = {team: g for g, team in best_thirds}
+    teams = [team for _, team in best_thirds]
+
+    order = sorted(
+        range(len(slot_eligibles)),
+        key=lambda i: sum(1 for t in teams if group_of[t] in slot_eligibles[i]),
+    )
+    assignment: dict[int, str] = {}
+    used: set[str] = set()
+
+    def backtrack(k: int) -> bool:
+        if k == len(order):
+            return True
+        slot_idx = order[k]
+        for t in teams:
+            if t in used:
+                continue
+            if group_of[t] in slot_eligibles[slot_idx]:
+                assignment[slot_idx] = t
+                used.add(t)
+                if backtrack(k + 1):
+                    return True
+                used.discard(t)
+                del assignment[slot_idx]
+        return False
+
+    if not backtrack(0):
+        raise ValueError("No valid third-place assignment for given eligibilities")
+    return [assignment[i] for i in range(len(slot_eligibles))]
