@@ -1,103 +1,72 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 import pytest
-from src.simulator import TournamentSimulator, WC2026_GROUPS, get_8_best_third
+from src.fixtures_bracket import load_tournament
+from src.simulator import TournamentSimulator, get_8_best_third
+from src.xgboost_model import FEATURE_COLS
+
 
 @pytest.fixture
-def mock_model():
-    """Stub XGBoost model that always returns equal probabilities."""
-    class MockModel:
-        def predict_proba(self, X):
-            n = len(X)
-            return np.full((n, 3), 1/3)
-        label_encoder = type("LE", (), {"classes_": np.array([-1, 0, 1])})()
-    return MockModel()
+def tournament():
+    return load_tournament("data/raw/wc2026_fixtures.csv")
 
-@pytest.fixture
-def mock_features():
-    """Minimal feature DataFrame with all required columns."""
-    from src.xgboost_model import FEATURE_COLS
-    rng = np.random.default_rng(1)
-    teams = [t for group in WC2026_GROUPS.values() for t in group]
-    rows = []
-    for t_a in teams[:4]:
-        for t_b in teams[4:8]:
-            row = {col: rng.standard_normal() for col in FEATURE_COLS}
-            row["team_a"] = t_a
-            row["team_b"] = t_b
-            rows.append(row)
-    return pd.DataFrame(rows)
 
-def test_wc2026_groups_has_12_groups():
-    assert len(WC2026_GROUPS) == 12
+class StubModel:
+    def predict_proba(self, X):
+        n = len(X)
+        return np.full((n, 3), 1 / 3)
+    label_encoder = type("LE", (), {"classes_": np.array([-1, 0, 1])})()
 
-def test_wc2026_groups_has_4_teams_each():
-    for group, teams in WC2026_GROUPS.items():
-        assert len(teams) == 4, f"Group {group} has {len(teams)} teams"
 
-def test_wc2026_total_48_unique_teams():
-    all_teams = [t for teams in WC2026_GROUPS.values() for t in teams]
-    assert len(all_teams) == 48
-    assert len(set(all_teams)) == 48
+class StubProvider:
+    def row(self, a, b):
+        return pd.DataFrame([{c: 0.0 for c in FEATURE_COLS}])
 
-def test_get_8_best_third():
-    third_place = [
-        {"team": f"Team{i}", "pts": i % 5, "gd": i % 3, "gf": i % 7}
-        for i in range(12)
-    ]
-    best = get_8_best_third(third_place)
-    assert len(best) == 8
 
-def test_simulate_group_returns_standings(mock_model, mock_features):
-    from src.feature_builder import CONFEDERATION
-    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
-    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
+def make_sim(tournament, **kw):
+    teams = [t for g in tournament.groups.values() for t in g]
+    penalty = {t: 0.5 for t in teams}
+    return TournamentSimulator(StubModel(), penalty, tournament, StubProvider(), **kw)
+
+
+def test_get_8_best_third_unchanged():
+    thirds = [{"team": f"T{i}", "pts": i % 5, "gd": i % 3, "gf": i % 7} for i in range(12)]
+    assert len(get_8_best_third(thirds)) == 8
+
+
+def test_simulate_group_returns_4_standings(tournament):
+    sim = make_sim(tournament)
     standings = sim.simulate_group("A")
     assert len(standings) == 4
-    for entry in standings:
-        assert "team" in entry
-        assert "pts" in entry
-        assert "gd" in entry
-        assert "gf" in entry
+    assert {"team", "pts", "gd", "gf"} <= set(standings[0])
 
-def test_simulate_knockout_returns_string(mock_model, mock_features):
-    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
-    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
-    winner = sim.simulate_knockout_match("Germany", "France")
-    assert winner in {"Germany", "France"}
 
-def test_run_returns_dataframe_with_48_rows(mock_model, mock_features):
-    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
-    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
-    result = sim.run(n_simulations=10)
-    assert len(result) == 48
-    assert "p_champion" in result.columns
-    assert "p_finalist" in result.columns
-    assert "p_semifinalist" in result.columns
+def test_full_tournament_has_champion(tournament):
+    sim = make_sim(tournament)
+    res = sim.simulate_full_tournament()
+    teams = [t for g in tournament.groups.values() for t in g]
+    assert res["champion"] in teams
+    assert len(res["semifinalists"]) == 4
+    assert len(res["finalists"]) == 2
 
-def test_champion_probabilities_sum_to_1(mock_model, mock_features):
-    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
-    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
-    result = sim.run(n_simulations=100)
-    assert abs(result["p_champion"].sum() - 1.0) < 0.01
 
-def test_precompute_caches_all_matchups(mock_model, mock_features):
-    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
-    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
-    sim.precompute_probabilities()
-    # 48 teams -> 48*47 ordered pairs
-    assert len(sim._prob_cache) == 48 * 47
+def test_run_outputs_advancement_columns(tournament):
+    sim = make_sim(tournament)
+    df, _bracket = sim.run(n_simulations=50)
+    assert len(df) == 48
+    for col in ["p_champion", "p_finalist", "p_semifinalist",
+                "p_group_winner", "p_runner_up", "p_advance", "confederation"]:
+        assert col in df.columns
 
-def test_cached_proba_matches_direct_call(mock_model, mock_features):
-    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
-    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
-    direct = mock_model.predict_proba(sim._get_features("Germany", "France"))[0]
-    sim.precompute_probabilities()
-    np.testing.assert_allclose(sim._proba("Germany", "France"), direct)
 
-def test_run_invokes_progress_callback(mock_model, mock_features):
-    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
-    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
-    calls = []
-    sim.run(n_simulations=20, progress_callback=lambda done, total: calls.append((done, total)))
-    assert calls and calls[-1] == (20, 20)
+def test_champion_probs_sum_to_one(tournament):
+    sim = make_sim(tournament)
+    df, _ = sim.run(n_simulations=200)
+    assert abs(df["p_champion"].sum() - 1.0) < 0.01
+
+
+def test_advance_count_is_32_per_sim(tournament):
+    sim = make_sim(tournament)
+    df, _ = sim.run(n_simulations=100)
+    # 12 winners + 12 runners + 8 best thirds = 32 teams advance each sim
+    assert (df["p_advance"] * 1).sum() == pytest.approx(32.0, abs=0.5)

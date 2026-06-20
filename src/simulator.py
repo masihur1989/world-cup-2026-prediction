@@ -1,227 +1,196 @@
 import numpy as np
 import pandas as pd
 from collections import defaultdict
-from src.feature_builder import CONFEDERATION
-from src.xgboost_model import FEATURE_COLS
 
-WC2026_GROUPS: dict[str, list[str]] = {
-    "A": ["United States", "Brazil",    "Morocco",    "Serbia"],
-    "B": ["Mexico",        "Netherlands","Japan",      "Cameroon"],
-    "C": ["Canada",        "Germany",   "Ecuador",    "Ivory Coast"],
-    "D": ["Spain",         "Argentina", "Saudi Arabia","Albania"],
-    "E": ["France",        "Colombia",  "South Korea","Tunisia"],
-    "F": ["England",       "Uruguay",   "Iran",       "DR Congo"],
-    "G": ["Portugal",      "Belgium",   "Australia",  "Senegal"],
-    "H": ["Croatia",       "Venezuela", "Egypt",      "Iraq"],
-    "I": ["Austria",       "Paraguay",  "Jordan",     "Mali"],
-    "J": ["Denmark",       "Turkey",    "Nigeria",    "Panama"],
-    "K": ["Switzerland",   "Scotland",  "Uzbekistan", "Costa Rica"],
-    "L": ["Czechia",       "Slovakia",  "New Zealand","Honduras"],
-}
+from src.feature_builder import CONFEDERATION
+from src.fixtures_bracket import assign_third_place
 
 
 def get_8_best_third(third_place: list[dict]) -> list[str]:
     """Select 8 best 3rd-place teams by pts desc, gd desc, gf desc."""
-    sorted_third = sorted(
-        third_place,
-        key=lambda x: (x["pts"], x["gd"], x["gf"]),
-        reverse=True,
-    )
-    return [t["team"] for t in sorted_third[:8]]
+    ordered = sorted(third_place, key=lambda x: (x["pts"], x["gd"], x["gf"]), reverse=True)
+    return [t["team"] for t in ordered[:8]]
 
 
 class TournamentSimulator:
-    def __init__(self, xgb_model, penalty_rates: dict, features: pd.DataFrame):
-        self.model = xgb_model
+    """
+    Fixture-driven Monte Carlo simulator. Groups and R32 pairings come from a
+    parsed Tournament; matchup features come from a provider (so knockout odds
+    use real current-state features). Probabilities for every ordered pair are
+    precomputed once, after which the simulation loop makes no model calls.
+    """
+
+    def __init__(self, model, penalty_rates, tournament, matchup_features,
+                 known_results=None):
+        self.model = model
         self.penalty_rates = penalty_rates
-        self.features = features
-        self._feature_cache: dict = {}
-        # Maps (team_a, team_b) -> probability vector. Populated by
-        # precompute_probabilities() so the simulation loop performs zero model
-        # calls (there are only ~2,256 distinct ordered matchups among 48 teams,
-        # versus ~10M predict_proba calls if scored per simulated match).
+        self.tournament = tournament
+        self.matchup_features = matchup_features
+        self.known_results = known_results or {}
+        self.teams = [t for g in tournament.groups.values() for t in g]
         self._prob_cache: dict = {}
 
-    def _get_features(self, team_a: str, team_b: str) -> pd.DataFrame:
-        """Look up or generate feature row for team_a vs team_b."""
-        cache_key = (team_a, team_b)
-        if cache_key in self._feature_cache:
-            return self._feature_cache[cache_key]
-        mask = (self.features["team_a"] == team_a) & (self.features["team_b"] == team_b)
-        if mask.any():
-            row = self.features[mask].iloc[[-1]][FEATURE_COLS].fillna(0.0)
-        else:
-            mask_rev = (self.features["team_a"] == team_b) & (self.features["team_b"] == team_a)
-            if mask_rev.any():
-                row = self.features[mask_rev].iloc[[-1]][FEATURE_COLS].fillna(0.0).copy()
-                for col in ["elo_diff", "fifa_rank_diff", "h2h_goal_diff"]:
-                    if col in row.columns:
-                        row[col] = -row[col]
-            else:
-                row = pd.DataFrame([{col: 0.0 for col in FEATURE_COLS}])
-        self._feature_cache[cache_key] = row
-        return row
-
     def precompute_probabilities(self) -> None:
-        """
-        Score every possible ordered matchup among the 48 teams in a single
-        batched predict_proba call and cache the result. After this, the
-        simulation loop is pure random sampling with no model calls.
-        """
-        teams = [t for group in WC2026_GROUPS.values() for t in group]
-        pairs = [(a, b) for a in teams for b in teams if a != b]
-        X = pd.concat(
-            [self._get_features(a, b) for a, b in pairs], ignore_index=True
-        )
+        pairs = [(a, b) for a in self.teams for b in self.teams if a != b]
+        X = pd.concat([self.matchup_features.row(a, b) for a, b in pairs],
+                      ignore_index=True)
         proba = self.model.predict_proba(X)
         self._prob_cache = {pair: proba[i] for i, pair in enumerate(pairs)}
 
-    def _proba(self, team_a: str, team_b: str):
-        """Return the cached probability vector, falling back to a live call."""
-        cached = self._prob_cache.get((team_a, team_b))
+    def _proba(self, a, b):
+        cached = self._prob_cache.get((a, b))
         if cached is not None:
             return cached
-        return self.model.predict_proba(self._get_features(team_a, team_b))[0]
+        return self.model.predict_proba(self.matchup_features.row(a, b))[0]
 
-    def simulate_group_match(self, team_a: str, team_b: str) -> tuple:
-        proba = self._proba(team_a, team_b)
-        classes = self.model.label_encoder.classes_
-        class_probs = {int(c): p for c, p in zip(classes, proba)}
-        p_win_a  = class_probs.get(1, 0.0)
-        p_draw   = class_probs.get(0, 0.0)
+    def _class_probs(self, a, b):
+        proba = self._proba(a, b)
+        classes = list(self.model.label_encoder.classes_)
+        m = {int(c): p for c, p in zip(classes, proba)}
+        return m.get(1, 0.0), m.get(0, 0.0), m.get(-1, 0.0), len(classes)
 
+    def simulate_group_match(self, a, b) -> tuple:
+        known = self.known_results.get(frozenset({a, b}))
+        if known is not None and known.get("score_a") is not None:
+            if known["team_a"] == a:
+                return int(known["score_a"]), int(known["score_b"])
+            return int(known["score_b"]), int(known["score_a"])
+        p_win_a, p_draw, _p_loss, _ = self._class_probs(a, b)
         r = np.random.random()
         if r < p_win_a:
             return (2, 0)
-        elif r < p_win_a + p_draw:
+        if r < p_win_a + p_draw:
             return (1, 1)
-        else:
-            return (0, 2)
-
-    def simulate_knockout_match(self, team_a: str, team_b: str) -> str:
-        proba = self._proba(team_a, team_b)
-        classes = list(self.model.label_encoder.classes_)
-
-        if len(classes) == 3:
-            p_a = proba[classes.index(1)] + proba[classes.index(0)] * 0.5
-        else:
-            idx_win = list(classes).index(1) if 1 in classes else -1
-            p_a = proba[idx_win] if idx_win >= 0 else 0.5
-
-        r = np.random.random()
-        if abs(p_a - 0.5) < 0.01:
-            pen_a = self.penalty_rates.get(team_a, 0.5)
-            pen_b = self.penalty_rates.get(team_b, 0.5)
-            total = pen_a + pen_b
-            p_a = pen_a / total if total > 0 else 0.5
-
-        return team_a if r < p_a else team_b
+        return (0, 2)
 
     def simulate_group(self, group: str) -> list:
-        from itertools import combinations
-        teams = WC2026_GROUPS[group]
-        pts = defaultdict(int)
-        gd  = defaultdict(int)
-        gf  = defaultdict(int)
-
-        for t_a, t_b in combinations(teams, 2):
-            ga, gb = self.simulate_group_match(t_a, t_b)
-            gf[t_a] += ga; gf[t_b] += gb
-            gd[t_a] += ga - gb; gd[t_b] += gb - ga
+        teams = self.tournament.groups[group]
+        pts = defaultdict(int); gd = defaultdict(int); gf = defaultdict(int)
+        matches = [(a, b) for (a, b, g) in self.tournament.group_matches if g == group]
+        for a, b in matches:
+            ga, gb = self.simulate_group_match(a, b)
+            gf[a] += ga; gf[b] += gb
+            gd[a] += ga - gb; gd[b] += gb - ga
             if ga > gb:
-                pts[t_a] += 3
+                pts[a] += 3
             elif ga == gb:
-                pts[t_a] += 1; pts[t_b] += 1
+                pts[a] += 1; pts[b] += 1
             else:
-                pts[t_b] += 3
-
-        standings = [
-            {"team": t, "pts": pts[t], "gd": gd[t], "gf": gf[t]}
-            for t in teams
-        ]
+                pts[b] += 3
+        standings = [{"team": t, "pts": pts[t], "gd": gd[t], "gf": gf[t]} for t in teams]
         standings.sort(key=lambda x: (x["pts"], x["gd"], x["gf"]), reverse=True)
         return standings
 
+    def simulate_knockout_match(self, a, b) -> str:
+        known = self.known_results.get(frozenset({a, b}))
+        if known is not None and known.get("winner"):
+            return known["winner"]
+        p_win_a, p_draw, _p_loss, n_classes = self._class_probs(a, b)
+        if n_classes == 3:
+            p_a = p_win_a + p_draw * 0.5
+        else:
+            p_a = p_win_a
+        if abs(p_a - 0.5) < 0.01:
+            pa = self.penalty_rates.get(a, 0.5)
+            pb = self.penalty_rates.get(b, 0.5)
+            p_a = pa / (pa + pb) if (pa + pb) > 0 else 0.5
+        return a if np.random.random() < p_a else b
+
     def simulate_full_tournament(self) -> dict:
-        all_third: list = []
-        qualified: dict = {}
+        group_winner, group_runner = {}, {}
+        thirds_by_group = {}
+        for g in self.tournament.groups:
+            st = self.simulate_group(g)
+            group_winner[g] = st[0]["team"]
+            group_runner[g] = st[1]["team"]
+            thirds_by_group[g] = {"group": g, **st[2]}
 
-        for group in WC2026_GROUPS:
-            standings = self.simulate_group(group)
-            qualified[group] = [standings[0]["team"], standings[1]["team"]]
-            all_third.append(standings[2])
+        best = get_8_best_third(list(thirds_by_group.values()))
+        best_set = set(best)
+        best_thirds = [(g, thirds_by_group[g]["team"]) for g in self.tournament.groups
+                       if thirds_by_group[g]["team"] in best_set]
 
-        best_third = get_8_best_third(all_third)
+        third_slot_eligibles = []
+        slot_lookup = []
+        for i, (sa, sb) in enumerate(self.tournament.r32_slots):
+            for side, s in (("a", sa), ("b", sb)):
+                if s.kind == "third":
+                    third_slot_eligibles.append(s.eligible)
+                    slot_lookup.append((i, side))
+        assigned = assign_third_place(third_slot_eligibles, best_thirds)
+        third_by_pos = {pos: team for pos, team in zip(slot_lookup, assigned)}
 
-        group_keys = sorted(WC2026_GROUPS.keys())
-        winners = [qualified[g][0] for g in group_keys]
-        runners = [qualified[g][1] for g in group_keys]
-        all_32 = winners + runners + best_third
-        np.random.shuffle(all_32)
-        ko_pairs = [(all_32[i], all_32[i+1]) for i in range(0, 32, 2)]
+        r32_winners = []
+        advanced = set()
+        for i, (sa, sb) in enumerate(self.tournament.r32_slots):
+            ta = (third_by_pos[(i, "a")] if sa.kind == "third"
+                  else (group_winner[sa.group] if sa.kind == "winner" else group_runner[sa.group]))
+            tb = (third_by_pos[(i, "b")] if sb.kind == "third"
+                  else (group_winner[sb.group] if sb.kind == "winner" else group_runner[sb.group]))
+            advanced.add(ta); advanced.add(tb)
+            r32_winners.append(self.simulate_knockout_match(ta, tb))
 
-        current_round = [self.simulate_knockout_match(a, b) for a, b in ko_pairs]
-        semifinalists = []
-        finalists = []
-        while len(current_round) > 1:
-            if len(current_round) == 4:
-                semifinalists = list(current_round)
-            if len(current_round) == 2:
-                finalists = list(current_round)
-            next_round = []
-            for i in range(0, len(current_round), 2):
-                winner = self.simulate_knockout_match(
-                    current_round[i], current_round[i+1]
-                )
-                next_round.append(winner)
-            current_round = next_round
+        current = r32_winners
+        semifinalists, finalists = [], []
+        while len(current) > 1:
+            if len(current) == 4:
+                semifinalists = list(current)
+            if len(current) == 2:
+                finalists = list(current)
+            nxt = [self.simulate_knockout_match(current[i], current[i + 1])
+                   for i in range(0, len(current), 2)]
+            current = nxt
 
         return {
-            "champion": current_round[0],
+            "champion": current[0],
             "finalists": finalists,
             "semifinalists": semifinalists,
+            "group_winners": list(group_winner.values()),
+            "runners_up": list(group_runner.values()),
+            "advanced": advanced,
         }
 
-    def run(self, n_simulations: int = 100_000, progress_callback=None) -> pd.DataFrame:
-        # Score all matchups once; the loop below then does zero model calls.
+    def run(self, n_simulations: int = 100_000, progress_callback=None):
         if not self._prob_cache:
             self.precompute_probabilities()
-
-        all_teams = [t for group in WC2026_GROUPS.values() for t in group]
-        champion_counts     = defaultdict(int)
-        finalist_counts     = defaultdict(int)
-        semifinalist_counts = defaultdict(int)
-
-        report_every = max(1, n_simulations // 20)  # ~5% increments
+        champ = defaultdict(int); fin = defaultdict(int); semi = defaultdict(int)
+        gw = defaultdict(int); ru = defaultdict(int); adv = defaultdict(int)
+        report_every = max(1, n_simulations // 20)
         for i in range(n_simulations):
-            res = self.simulate_full_tournament()
-            champion_counts[res["champion"]] += 1
-            for t in res["finalists"]:
-                finalist_counts[t] += 1
-            for t in res["semifinalists"]:
-                semifinalist_counts[t] += 1
+            r = self.simulate_full_tournament()
+            champ[r["champion"]] += 1
+            for t in r["finalists"]:
+                fin[t] += 1
+            for t in r["semifinalists"]:
+                semi[t] += 1
+            for t in r["group_winners"]:
+                gw[t] += 1
+            for t in r["runners_up"]:
+                ru[t] += 1
+            for t in r["advanced"]:
+                adv[t] += 1
             if progress_callback and (i + 1) % report_every == 0:
                 progress_callback(i + 1, n_simulations)
 
-        results = []
-        for team in all_teams:
-            results.append({
-                "team":           team,
-                "p_champion":     champion_counts[team] / n_simulations,
-                "p_finalist":     finalist_counts[team] / n_simulations,
-                "p_semifinalist": semifinalist_counts[team] / n_simulations,
-                "confederation":  CONFEDERATION.get(team, "UEFA"),
-            })
-
-        df = pd.DataFrame(results)
+        rows = [{
+            "team": t,
+            "p_champion": champ[t] / n_simulations,
+            "p_finalist": fin[t] / n_simulations,
+            "p_semifinalist": semi[t] / n_simulations,
+            "p_group_winner": gw[t] / n_simulations,
+            "p_runner_up": ru[t] / n_simulations,
+            "p_advance": adv[t] / n_simulations,
+            "confederation": CONFEDERATION.get(t, "UEFA"),
+        } for t in self.teams]
+        df = pd.DataFrame(rows)
         total = df["p_champion"].sum()
         if total > 0:
             df["p_champion"] = df["p_champion"] / total
-        return df.sort_values("p_champion", ascending=False).reset_index(drop=True)
+        df = df.sort_values("p_champion", ascending=False).reset_index(drop=True)
+        bracket = pd.DataFrame(columns=["round", "match_index", "team", "p_reach"])
+        return df, bracket
 
 
-def save_simulation_results(
-    df: pd.DataFrame,
-    path: str = "data/processed/simulation_results.csv",
-) -> None:
+def save_simulation_results(df: pd.DataFrame,
+                            path: str = "data/processed/simulation_results.csv") -> None:
     df.to_csv(path, index=False)
