@@ -5,27 +5,27 @@ from src.elo_calculator import get_elo_on_date, get_rank_on_date
 # Hardcoded team → confederation for all 48 WC 2026 qualified nations.
 # TODO: Verify against official FIFA 2026 qualification results.
 CONFEDERATION: dict[str, str] = {
-    # UEFA (17 teams including inter-confederation playoff winner)
-    "Germany": "UEFA", "France": "UEFA", "Spain": "UEFA", "England": "UEFA",
-    "Portugal": "UEFA", "Netherlands": "UEFA", "Belgium": "UEFA", "Austria": "UEFA",
-    "Denmark": "UEFA", "Switzerland": "UEFA", "Croatia": "UEFA", "Serbia": "UEFA",
-    "Scotland": "UEFA", "Czechia": "UEFA", "Slovakia": "UEFA", "Turkey": "UEFA",
-    "Albania": "UEFA",
-    # CONMEBOL (7 teams including playoff winner)
-    "Argentina": "CONMEBOL", "Brazil": "CONMEBOL", "Colombia": "CONMEBOL",
-    "Uruguay": "CONMEBOL", "Ecuador": "CONMEBOL", "Venezuela": "CONMEBOL",
-    "Paraguay": "CONMEBOL",
-    # CAF (9 teams)
-    "Morocco": "CAF", "Senegal": "CAF", "Nigeria": "CAF", "Egypt": "CAF",
-    "Cameroon": "CAF", "Tunisia": "CAF", "Ivory Coast": "CAF",
-    "DR Congo": "CAF", "Mali": "CAF",
-    # AFC (8 teams)
-    "Japan": "AFC", "South Korea": "AFC", "Iran": "AFC", "Saudi Arabia": "AFC",
-    "Australia": "AFC", "Jordan": "AFC", "Uzbekistan": "AFC", "Iraq": "AFC",
-    # CONCACAF (6 teams — USA, Canada, Mexico are automatic hosts)
-    "United States": "CONCACAF", "Canada": "CONCACAF", "Mexico": "CONCACAF",
-    "Panama": "CONCACAF", "Costa Rica": "CONCACAF", "Honduras": "CONCACAF",
-    # OFC (1 team)
+    # UEFA
+    "Czechia": "UEFA", "Switzerland": "UEFA", "Bosnia and Herzegovina": "UEFA",
+    "Scotland": "UEFA", "Turkey": "UEFA", "Germany": "UEFA", "Netherlands": "UEFA",
+    "Sweden": "UEFA", "Belgium": "UEFA", "Spain": "UEFA", "France": "UEFA",
+    "Norway": "UEFA", "Austria": "UEFA", "Portugal": "UEFA", "Croatia": "UEFA",
+    "England": "UEFA",
+    # CONMEBOL
+    "Brazil": "CONMEBOL", "Paraguay": "CONMEBOL", "Ecuador": "CONMEBOL",
+    "Uruguay": "CONMEBOL", "Argentina": "CONMEBOL", "Colombia": "CONMEBOL",
+    # CAF
+    "South Africa": "CAF", "Morocco": "CAF", "Ivory Coast": "CAF", "Tunisia": "CAF",
+    "Egypt": "CAF", "Cape Verde": "CAF", "Senegal": "CAF", "Algeria": "CAF",
+    "DR Congo": "CAF", "Ghana": "CAF",
+    # AFC
+    "South Korea": "AFC", "Qatar": "AFC", "Australia": "AFC", "Japan": "AFC",
+    "Iran": "AFC", "Saudi Arabia": "AFC", "Iraq": "AFC", "Jordan": "AFC",
+    "Uzbekistan": "AFC",
+    # CONCACAF
+    "Mexico": "CONCACAF", "Canada": "CONCACAF", "Haiti": "CONCACAF",
+    "Curacao": "CONCACAF", "United States": "CONCACAF", "Panama": "CONCACAF",
+    # OFC
     "New Zealand": "OFC",
 }
 
