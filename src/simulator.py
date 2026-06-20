@@ -36,6 +36,11 @@ class TournamentSimulator:
         self.penalty_rates = penalty_rates
         self.features = features
         self._feature_cache: dict = {}
+        # Maps (team_a, team_b) -> probability vector. Populated by
+        # precompute_probabilities() so the simulation loop performs zero model
+        # calls (there are only ~2,256 distinct ordered matchups among 48 teams,
+        # versus ~10M predict_proba calls if scored per simulated match).
+        self._prob_cache: dict = {}
 
     def _get_features(self, team_a: str, team_b: str) -> pd.DataFrame:
         """Look up or generate feature row for team_a vs team_b."""
@@ -57,9 +62,29 @@ class TournamentSimulator:
         self._feature_cache[cache_key] = row
         return row
 
+    def precompute_probabilities(self) -> None:
+        """
+        Score every possible ordered matchup among the 48 teams in a single
+        batched predict_proba call and cache the result. After this, the
+        simulation loop is pure random sampling with no model calls.
+        """
+        teams = [t for group in WC2026_GROUPS.values() for t in group]
+        pairs = [(a, b) for a in teams for b in teams if a != b]
+        X = pd.concat(
+            [self._get_features(a, b) for a, b in pairs], ignore_index=True
+        )
+        proba = self.model.predict_proba(X)
+        self._prob_cache = {pair: proba[i] for i, pair in enumerate(pairs)}
+
+    def _proba(self, team_a: str, team_b: str):
+        """Return the cached probability vector, falling back to a live call."""
+        cached = self._prob_cache.get((team_a, team_b))
+        if cached is not None:
+            return cached
+        return self.model.predict_proba(self._get_features(team_a, team_b))[0]
+
     def simulate_group_match(self, team_a: str, team_b: str) -> tuple:
-        X = self._get_features(team_a, team_b)
-        proba = self.model.predict_proba(X)[0]
+        proba = self._proba(team_a, team_b)
         classes = self.model.label_encoder.classes_
         class_probs = {int(c): p for c, p in zip(classes, proba)}
         p_win_a  = class_probs.get(1, 0.0)
@@ -74,8 +99,7 @@ class TournamentSimulator:
             return (0, 2)
 
     def simulate_knockout_match(self, team_a: str, team_b: str) -> str:
-        X = self._get_features(team_a, team_b)
-        proba = self.model.predict_proba(X)[0]
+        proba = self._proba(team_a, team_b)
         classes = list(self.model.label_encoder.classes_)
 
         if len(classes) == 3:
@@ -158,19 +182,26 @@ class TournamentSimulator:
             "semifinalists": semifinalists,
         }
 
-    def run(self, n_simulations: int = 100_000) -> pd.DataFrame:
+    def run(self, n_simulations: int = 100_000, progress_callback=None) -> pd.DataFrame:
+        # Score all matchups once; the loop below then does zero model calls.
+        if not self._prob_cache:
+            self.precompute_probabilities()
+
         all_teams = [t for group in WC2026_GROUPS.values() for t in group]
         champion_counts     = defaultdict(int)
         finalist_counts     = defaultdict(int)
         semifinalist_counts = defaultdict(int)
 
-        for _ in range(n_simulations):
+        report_every = max(1, n_simulations // 20)  # ~5% increments
+        for i in range(n_simulations):
             res = self.simulate_full_tournament()
             champion_counts[res["champion"]] += 1
             for t in res["finalists"]:
                 finalist_counts[t] += 1
             for t in res["semifinalists"]:
                 semifinalist_counts[t] += 1
+            if progress_callback and (i + 1) % report_every == 0:
+                progress_callback(i + 1, n_simulations)
 
         results = []
         for team in all_teams:

@@ -80,3 +80,24 @@ def test_champion_probabilities_sum_to_1(mock_model, mock_features):
     sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
     result = sim.run(n_simulations=100)
     assert abs(result["p_champion"].sum() - 1.0) < 0.01
+
+def test_precompute_caches_all_matchups(mock_model, mock_features):
+    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
+    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
+    sim.precompute_probabilities()
+    # 48 teams -> 48*47 ordered pairs
+    assert len(sim._prob_cache) == 48 * 47
+
+def test_cached_proba_matches_direct_call(mock_model, mock_features):
+    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
+    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
+    direct = mock_model.predict_proba(sim._get_features("Germany", "France"))[0]
+    sim.precompute_probabilities()
+    np.testing.assert_allclose(sim._proba("Germany", "France"), direct)
+
+def test_run_invokes_progress_callback(mock_model, mock_features):
+    penalty_rates = {t: 0.5 for group in WC2026_GROUPS.values() for t in group}
+    sim = TournamentSimulator(mock_model, penalty_rates, mock_features)
+    calls = []
+    sim.run(n_simulations=20, progress_callback=lambda done, total: calls.append((done, total)))
+    assert calls and calls[-1] == (20, 20)

@@ -106,6 +106,47 @@ python -m src.pipeline --trials 100 --simulations 100000
 
 This writes `elo_history.csv`, `features.csv`, model `.pkl` files, `shap_values.csv`, and
 `simulation_results.csv` into `data/processed/`, logging every model + metric to MLflow.
+Timestamped progress (per-stage `[i/6]` markers and `~5%` increment updates within the long
+loops) is logged to the console throughout.
+
+### Checkpoints, progress, and resume
+
+The pipeline runs as six checkpointed stages, each writing one artifact to `data/processed/`:
+
+| # | Stage | Artifact |
+|---|-------|----------|
+| 1 | `elo` | `elo_history.csv` |
+| 2 | `features` | `features.csv` (+ `poisson_model.pkl`) |
+| 3 | `xgb_3class` | `xgb_3class.pkl` |
+| 4 | `xgb_binary` | `xgb_binary.pkl` |
+| 5 | `shap` | `shap_values.csv` |
+| 6 | `simulate` | `simulation_results.csv` |
+
+**Check where the pipeline is** (which stages are done, what runs next):
+
+```bash
+python -m src.pipeline --status
+```
+
+**Resume after a failure.** A plain run **automatically skips stages whose artifact already
+exists** and starts at the first incomplete one — so if it crashes in stage 5, just re-run and
+it picks up at stage 5 instead of retraining from scratch:
+
+```bash
+python -m src.pipeline                      # resume from first missing artifact
+```
+
+**Force or target specific stages:**
+
+```bash
+python -m src.pipeline --force              # ignore checkpoints, run all 6 from scratch
+python -m src.pipeline --start-from xgb_3class   # re-run from a chosen stage onward
+```
+
+> **Performance:** the Monte Carlo simulator scores every distinct matchup **once** (~2,256
+> ordered pairs among 48 teams) and caches the probabilities, so the 100k-tournament loop does
+> zero model calls — a full 100k run completes in ~25 seconds. Lower `--simulations 10000` for
+> even faster, still-stable estimates while iterating.
 
 **Launch the dashboard:**
 
@@ -124,7 +165,7 @@ PYTHONPATH=. python scripts/smoke_test.py
 **Tests:**
 
 ```bash
-python -m pytest tests/ -q            # 48 tests
+python -m pytest tests/ -q            # 51 tests
 ```
 
 ---

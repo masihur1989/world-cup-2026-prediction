@@ -8,8 +8,10 @@ from xgboost import XGBClassifier
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.model_selection import TimeSeriesSplit, cross_val_predict
 from sklearn.preprocessing import LabelEncoder
+import logging
 
 optuna.logging.set_verbosity(optuna.logging.WARNING)
+logger = logging.getLogger("pipeline.xgboost")
 
 SCALAR_FEATURES = [
     "elo_diff", "fifa_rank_diff", "form_A", "form_B",
@@ -84,8 +86,18 @@ class WorldCupXGBModel:
                 scores.append(log_loss(y_enc_val, proba, labels=np.arange(len(le.classes_))))
             return np.mean(scores)
 
+        report_every = max(1, n_trials // 10)  # ~10% increments
+
+        def _log_progress(study, trial):
+            done = trial.number + 1
+            if done % report_every == 0 or done == n_trials:
+                logger.info(
+                    "  tuning %s: trial %d/%d (%.0f%%) best_logloss=%.4f",
+                    self.mode, done, n_trials, 100 * done / n_trials, study.best_value,
+                )
+
         study = optuna.create_study(direction="minimize")
-        study.optimize(objective, n_trials=n_trials)
+        study.optimize(objective, n_trials=n_trials, callbacks=[_log_progress])
         return study.best_params
 
     def fit(

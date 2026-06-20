@@ -151,6 +151,7 @@ def build_features(
     elo_history: pd.DataFrame,
     shootouts: pd.DataFrame,
     fixtures: pd.DataFrame | None = None,
+    progress_callback=None,
 ) -> pd.DataFrame:
     """
     Build 16 base features for every match in results (and optionally fixtures).
@@ -185,7 +186,9 @@ def build_features(
             fix_copy["tournament"] = "FIFA World Cup"
         source_df = pd.concat([source_df, fix_copy], ignore_index=True)
 
-    for _, match in source_df.iterrows():
+    n_total = len(source_df)
+    report_every = max(1, n_total // 20)  # ~5% increments
+    for counter, (_, match) in enumerate(source_df.iterrows(), start=1):
         date    = match["date"]
         team_a  = match["home_team"]
         team_b  = match["away_team"]
@@ -251,7 +254,11 @@ def build_features(
             **_one_hot_conf(team_b, "conf_B"),
         }
         rows.append(row)
+        if progress_callback and counter % report_every == 0:
+            progress_callback(counter, n_total)
 
+    if progress_callback and n_total:
+        progress_callback(n_total, n_total)
     return pd.DataFrame(rows)
 
 

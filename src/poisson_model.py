@@ -77,16 +77,22 @@ class PoissonGoalModel:
 
 
 def add_poisson_features(
-    features: pd.DataFrame, model: PoissonGoalModel
+    features: pd.DataFrame, model: PoissonGoalModel, progress_callback=None
 ) -> pd.DataFrame:
     """Append lambda_a and p_win_poisson columns (features 17 and 18)."""
     features = features.copy()
     lambdas, p_wins = [], []
-    for _, row in features.iterrows():
+    n_total = len(features)
+    report_every = max(1, n_total // 20)  # ~5% increments
+    for counter, (_, row) in enumerate(features.iterrows(), start=1):
         la, lb = model.predict_lambda(row)
         pw, _, _ = model.simulate_match(la, lb, n=50_000)
         lambdas.append(la)
         p_wins.append(pw)
+        if progress_callback and counter % report_every == 0:
+            progress_callback(counter, n_total)
     features["lambda_a"]      = lambdas
     features["p_win_poisson"] = p_wins
+    if progress_callback and n_total:
+        progress_callback(n_total, n_total)
     return features
