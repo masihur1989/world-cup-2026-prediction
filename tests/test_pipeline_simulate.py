@@ -10,7 +10,8 @@ pytestmark = pytest.mark.skipif(
 
 
 def test_stage_simulate_writes_snapshot(tmp_path, monkeypatch):
-    monkeypatch.setattr(pipeline, "PROCESSED", tmp_path)
+    # Inputs (models, elo) load from the real data/processed/; only redirect the
+    # snapshot OUTPUT location so the test does not touch real prediction files.
     import src.predictions as predmod
     monkeypatch.setattr(predmod, "PROCESSED", tmp_path)
     monkeypatch.setattr(predmod, "PREDICTIONS_DIR", tmp_path / "predictions")

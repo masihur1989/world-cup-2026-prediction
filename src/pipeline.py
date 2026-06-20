@@ -197,7 +197,8 @@ def stage_shap(ctx, cfg):
 
 
 def stage_simulate(ctx, cfg):
-    features = _get_features(ctx)
+    # Note: the simulator scores matchups via MatchupFeatureProvider (built from
+    # elo/results/shootouts), so features.csv is not needed here.
     shootouts = _get_shootouts(ctx)
     results = _get_results(ctx)
     elo = _get_elo(ctx)
