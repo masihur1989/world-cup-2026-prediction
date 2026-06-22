@@ -1,0 +1,8 @@
+# Viewer-facing app: hide the developer toolbar (Deploy, Edit, "Rerun",
+# Settings, source) so end users only see the dashboard.
+[client]
+toolbarMode = "minimal"
+showErrorDetails = false
+
+[browser]
+gatherUsageStats = false

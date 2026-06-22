@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy just what the dashboard needs: the app, the pandas-only src module it
 # imports, the fixtures, and the committed prediction snapshots.
+COPY .streamlit/ ./.streamlit/
 COPY app/ ./app/
 COPY src/__init__.py src/fixtures_bracket.py ./src/
 COPY data/raw/wc2026_fixtures.csv ./data/raw/
