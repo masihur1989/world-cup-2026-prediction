@@ -71,11 +71,16 @@ Requires Python 3.11+ (developed on 3.12).
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-train.txt   # full stack: pipeline, training, tests
 ```
 
-> **Note:** `requirements.txt` pins `setuptools<81` on purpose — `shap`/`numba` still import
-> `pkg_resources`, which was removed in setuptools 81+.
+`requirements.txt` holds **only the dashboard runtime** (pandas, numpy, streamlit, plotly) so the
+deployed app builds fast; `requirements-train.txt` pulls that in plus the training stack
+(xgboost, statsmodels, optuna, shap, scikit-learn, mlflow, pytest). To run *only* the dashboard,
+`pip install -r requirements.txt` is enough.
+
+> **Note:** `requirements-train.txt` pins `setuptools<81` — `shap`/`numba` still import
+> `pkg_resources`, removed in setuptools 81+.
 
 ---
 
@@ -182,6 +187,36 @@ streamlit run app/dashboard.py        # http://localhost:8501
 Four views: Match Predictor · Champion Probabilities · Group Stage Standings (real advancement
 odds) · **Tournament Bracket** (probabilistic — each match shows the teams most likely to reach
 it). A sidebar selector switches between saved snapshots.
+
+### Deploying the dashboard
+
+The dashboard is stateless and read-only (no model code at runtime), and the committed
+`2026-06-10__pre_tournament` snapshot is self-sufficient — a fresh clone runs as-is.
+
+**Streamlit Community Cloud (recommended, free):**
+1. Push the repo to GitHub.
+2. At [share.streamlit.io](https://share.streamlit.io): New app → your repo, branch `master`,
+   main file `app/dashboard.py`, Python 3.12 → Deploy. It installs the slim `requirements.txt`.
+
+**Container host (Render / Fly.io / Cloud Run)** — for a custom domain or always-on:
+
+```bash
+docker build -t wc2026-dashboard .
+docker run -p 8501:8501 wc2026-dashboard      # http://localhost:8501
+```
+
+The `Dockerfile` installs only the dashboard runtime and copies just what the app reads
+(the app, `src/fixtures_bracket.py`, the fixtures CSV, and the committed snapshots). It binds to
+`$PORT`, so Render/Fly/Cloud Run work out of the box.
+
+**Publishing updated predictions:** generate a new snapshot, commit it, and push — the deployment
+redeploys (Streamlit Cloud) or rebuild the image (container):
+
+```bash
+python -m src.pipeline --start-from simulate --as-of 2026-06-28 --label after_groups
+git add -f data/processed/predictions/2026-06-28__after_groups*.csv data/processed/predictions/index.csv
+git commit -m "snapshot: after group stage" && git push
+```
 
 **Smoke test** (no Kaggle data needed — runs every stage on synthetic data):
 

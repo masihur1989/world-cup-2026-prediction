@@ -90,15 +90,6 @@ def load_sim_results():
     return pd.read_csv("data/processed/simulation_results.csv")
 
 @st.cache_data
-def load_features():
-    return pd.read_csv("data/processed/features.csv", parse_dates=["date"])
-
-
-@st.cache_data
-def load_fixtures():
-    return pd.read_csv("data/raw/wc2026_fixtures.csv", parse_dates=["date"])
-
-@st.cache_data
 def load_bracket():
     try:
         return pd.read_csv("data/processed/bracket.csv")

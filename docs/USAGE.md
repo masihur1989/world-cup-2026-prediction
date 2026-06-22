@@ -72,12 +72,15 @@ Requires Python 3.11+ (developed on 3.12).
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-train.txt   # full stack (pipeline + training + tests)
 ```
 
-> `requirements.txt` pins `setuptools<81` on purpose — `shap`/`numba` still import
-> `pkg_resources`, removed in setuptools 81+. **Always use the venv** (`.venv/bin/...`), not a
-> base Anaconda install.
+`requirements.txt` is the **slim dashboard runtime** (pandas, numpy, streamlit, plotly) used by
+the deployed app; `requirements-train.txt` adds the training stack (xgboost, statsmodels, optuna,
+shap, scikit-learn, mlflow, pytest). To run *only* the dashboard, `requirements.txt` suffices.
+
+> `requirements-train.txt` pins `setuptools<81` — `shap`/`numba` still import `pkg_resources`,
+> removed in setuptools 81+. **Always use the venv** (`.venv/bin/...`), not a base Anaconda install.
 
 ---
 

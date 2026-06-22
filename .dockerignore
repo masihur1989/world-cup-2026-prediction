@@ -1,0 +1,22 @@
+# Keep the build context small — only the dashboard runtime is needed.
+.git
+.venv
+__pycache__
+**/__pycache__
+*.pyc
+.pytest_cache
+mlruns
+docs
+tests
+scripts
+notebooks
+.idea
+.worktrees
+requirements-train.txt
+# Heavy/training artifacts the dashboard never reads
+data/raw/results.csv
+data/raw/shootouts.csv
+data/raw/goalscorers.csv
+data/raw/former_names.csv
+data/processed/*.csv
+data/processed/*.pkl
