@@ -12,6 +12,8 @@ runs on **local CSV data only** — no external APIs, no web scraping.
 
 A Streamlit dashboard reads the pre-computed results and presents five interactive views.
 
+> 📘 **Full guide:** see [docs/USAGE.md](docs/USAGE.md) for what's built, how to run every feature, and how to update the data round-by-round.
+
 ---
 
 ## Architecture
