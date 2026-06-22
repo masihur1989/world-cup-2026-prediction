@@ -147,7 +147,8 @@ search space of:
 Every trial's params and the final metrics are logged to **MLflow** (experiment `wc2026`).
 
 **Interpretability:** SHAP `TreeExplainer` on the underlying booster produces per-feature
-attributions; the pipeline saves mean |SHAP| per feature to `shap_values.csv` for the dashboard.
+attributions; the pipeline saves mean |SHAP| per feature to `shap_values.csv` for offline
+inspection (not surfaced in the dashboard).
 
 ---
 

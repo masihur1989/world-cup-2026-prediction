@@ -27,7 +27,7 @@ runs **entirely on local CSV data** — no external APIs, no scraping.
 | **Stage 2 — XGBoost** | Calibrated Win/Draw/Loss probabilities (3-class for groups, binary for knockouts); Optuna-tuned, `TimeSeriesSplit` CV, SHAP, MLflow logging |
 | **Stage 3 — Monte Carlo simulator** | 100k tournament runs driven by the real fixtures → champion / advancement / bracket probabilities |
 | **Snapshots** | Each run is saved as a dated, immutable snapshot; results can be updated round-by-round with real outcomes |
-| **Dashboard** | A 5-tab Streamlit UI that reads pre-computed snapshots (no model code at runtime) |
+| **Dashboard** | A 4-tab Streamlit UI that reads pre-computed snapshots (no model code at runtime) |
 
 The simulator is driven by `data/raw/wc2026_fixtures.csv`: real groups, the official Round-of-32
 slot pairings, and standard-adjacency R16 → Final.
@@ -187,7 +187,9 @@ saved snapshot all tabs display. Team names show **emoji flags** throughout.
 | **Champion Probabilities** | 12-group × 4-team heatmap shaded by P(champion). |
 | **Group Stage Standings** | Real P(advance) and P(win group) per team, per group. |
 | **Tournament Bracket** | Probabilistic bracket: R32 → Final, each match box listing the top-N teams most likely to reach it (top-N slider). |
-| **SHAP Feature Importance** | Mean \|SHAP\| per feature (3-class model on the WC 2022 holdout). |
+
+(Model interpretability via SHAP is still computed during training and saved to
+`data/processed/shap_values.csv`; it's no longer surfaced as a user-facing dashboard tab.)
 
 ---
 

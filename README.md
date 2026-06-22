@@ -10,7 +10,7 @@ runs on **local CSV data only** — no external APIs, no web scraping.
 | **2** | XGBoost classifier (3-class group / binary knockout) | Calibrated W/D/L probabilities |
 | **3** | Monte Carlo tournament simulator | Champion / finalist / semifinalist probabilities |
 
-A Streamlit dashboard reads the pre-computed results and presents five interactive views.
+A Streamlit dashboard reads the pre-computed results and presents four interactive views.
 
 > 📘 **Full guide:** see [docs/USAGE.md](docs/USAGE.md) for what's built, how to run every feature, and how to update the data round-by-round.
 > 🧠 **ML build-out:** see [docs/MODEL.md](docs/MODEL.md) for the modeling details — Elo, features, the three stages, calibration, and evaluation.
@@ -50,7 +50,7 @@ data/raw/*.csv
 │   ├── simulator.py        # Stage 3: Monte Carlo tournament
 │   └── pipeline.py         # end-to-end orchestrator
 ├── app/
-│   └── dashboard.py        # Streamlit 5-view dashboard
+│   └── dashboard.py        # Streamlit 4-view dashboard
 ├── scripts/
 │   ├── generate_fixtures.py  # builds wc2026_fixtures.csv
 │   └── smoke_test.py         # full pipeline on synthetic data
@@ -179,9 +179,9 @@ names it. Re-running an existing `date/label` requires `--force`.
 streamlit run app/dashboard.py        # http://localhost:8501
 ```
 
-Five views: Match Predictor · Champion Probabilities · Group Stage Standings (real advancement
+Four views: Match Predictor · Champion Probabilities · Group Stage Standings (real advancement
 odds) · **Tournament Bracket** (probabilistic — each match shows the teams most likely to reach
-it) · SHAP Feature Importance. A sidebar selector switches between saved snapshots.
+it). A sidebar selector switches between saved snapshots.
 
 **Smoke test** (no Kaggle data needed — runs every stage on synthetic data):
 

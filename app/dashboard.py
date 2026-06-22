@@ -93,12 +93,6 @@ def load_sim_results():
 def load_features():
     return pd.read_csv("data/processed/features.csv", parse_dates=["date"])
 
-@st.cache_data
-def load_shap():
-    try:
-        return pd.read_csv("data/processed/shap_values.csv")
-    except FileNotFoundError:
-        return None
 
 @st.cache_data
 def load_fixtures():
@@ -271,30 +265,6 @@ def tab_group_standings(sim_results: pd.DataFrame):
                          hide_index=True, use_container_width=True)
 
 
-def tab_shap(shap_df):
-    st.header("SHAP Feature Importance")
-    if shap_df is None:
-        st.warning("SHAP values not yet computed. Run the full pipeline first.")
-        return
-    shap_df = shap_df.sort_values("mean_abs_shap", ascending=True)
-    fig = go.Figure(go.Bar(
-        x=shap_df["mean_abs_shap"],
-        y=shap_df["feature"],
-        orientation="h",
-        marker_color="#1f77b4",
-    ))
-    fig.update_layout(
-        height=500,
-        xaxis=dict(title="Mean |SHAP value|"),
-        yaxis=dict(title=""),
-    )
-    st.plotly_chart(fig, use_container_width=True)
-    st.caption(
-        "Computed on WC 2022 holdout set using the 3-class XGBoost model. "
-        "Higher = more influential for match outcome predictions."
-    )
-
-
 def main():
     st.title("FIFA World Cup 2026 — AI Prediction System")
     st.caption("All predictions based on historical data through 2024. No live data sources.")
@@ -322,11 +292,9 @@ def main():
     if matchups_df is None:
         matchups_df = load_matchups()  # fall back to 'latest'
 
-    shap_df = load_shap()
-
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    tab1, tab2, tab3, tab4 = st.tabs([
         "Match Predictor", "Champion Probabilities", "Group Stage Standings",
-        "Tournament Bracket", "SHAP Feature Importance",
+        "Tournament Bracket",
     ])
     with tab1:
         tab_match_predictor(matchups_df)
@@ -336,8 +304,6 @@ def main():
         tab_group_standings(sim_results)
     with tab4:
         tab_bracket(bracket_df)
-    with tab5:
-        tab_shap(shap_df)
 
 
 if __name__ == "__main__":
