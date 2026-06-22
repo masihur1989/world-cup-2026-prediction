@@ -13,6 +13,7 @@ runs on **local CSV data only** — no external APIs, no web scraping.
 A Streamlit dashboard reads the pre-computed results and presents five interactive views.
 
 > 📘 **Full guide:** see [docs/USAGE.md](docs/USAGE.md) for what's built, how to run every feature, and how to update the data round-by-round.
+> 🧠 **ML build-out:** see [docs/MODEL.md](docs/MODEL.md) for the modeling details — Elo, features, the three stages, calibration, and evaluation.
 
 ---
 
