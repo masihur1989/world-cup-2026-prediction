@@ -89,3 +89,12 @@ def test_bracket_two_participants_per_match(tournament):
     _df, bracket = sim.run(n_simulations=200)
     s = bracket.groupby(["round", "match_index"])["p_reach"].sum()
     assert np.allclose(s.values, 2.0, atol=0.05)
+
+
+def test_matchup_table(tournament):
+    sim = make_sim(tournament)
+    mt = sim.matchup_table()
+    assert set(mt.columns) == {"team_a", "team_b", "p_win_a", "p_draw", "p_win_b"}
+    assert len(mt) == 48 * 47
+    probs = mt[["p_win_a", "p_draw", "p_win_b"]].sum(axis=1)
+    assert np.allclose(probs.values, 1.0, atol=1e-6)

@@ -219,8 +219,10 @@ def stage_simulate(ctx, cfg):
     team_df, bracket_df = sim.run(
         n_simulations=cfg["simulations"], progress_callback=_progress("simulation"),
     )
+    matchups_df = sim.matchup_table()
     save_prediction_snapshot(team_df, bracket_df, cfg["as_of"], cfg["label"],
-                             n_simulations=cfg["simulations"], force=cfg.get("force", False))
+                             n_simulations=cfg["simulations"], matchups_df=matchups_df,
+                             force=cfg.get("force", False))
     ctx["sim_results"] = team_df
     log.info("  snapshot saved: %s__%s", cfg["as_of"], cfg["label"])
     log.info("  top 5 champions:\n%s",

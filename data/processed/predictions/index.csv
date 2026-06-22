@@ -1,2 +1,2 @@
-as_of_date,label,n_simulations,generated_at,path,bracket_path
-2026-06-10,pre_tournament,100000,2026-06-20T18:32:08,2026-06-10__pre_tournament.csv,2026-06-10__pre_tournament__bracket.csv
+as_of_date,label,n_simulations,generated_at,path,bracket_path,matchups_path
+2026-06-10,pre_tournament,100000,2026-06-21T10:40:35,2026-06-10__pre_tournament.csv,2026-06-10__pre_tournament__bracket.csv,2026-06-10__pre_tournament__matchups.csv

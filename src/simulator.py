@@ -49,6 +49,23 @@ class TournamentSimulator:
         m = {int(c): p for c, p in zip(classes, proba)}
         return m.get(1, 0.0), m.get(0, 0.0), m.get(-1, 0.0), len(classes)
 
+    def matchup_table(self) -> pd.DataFrame:
+        """
+        Real W/D/L probabilities for every ordered team pair, from the precomputed
+        cache. Columns: team_a, team_b, p_win_a, p_draw, p_win_b. Lets the
+        dashboard show model-based match predictions with no model code at runtime.
+        """
+        if not self._prob_cache:
+            self.precompute_probabilities()
+        classes = list(self.model.label_encoder.classes_)
+        rows = []
+        for (a, b), proba in self._prob_cache.items():
+            m = {int(c): p for c, p in zip(classes, proba)}
+            rows.append({"team_a": a, "team_b": b,
+                         "p_win_a": m.get(1, 0.0), "p_draw": m.get(0, 0.0),
+                         "p_win_b": m.get(-1, 0.0)})
+        return pd.DataFrame(rows)
+
     def simulate_group_match(self, a, b) -> tuple:
         known = self.known_results.get(frozenset({a, b}))
         if known is not None and known.get("score_a") is not None:

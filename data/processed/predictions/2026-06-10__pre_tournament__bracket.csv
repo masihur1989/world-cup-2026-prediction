@@ -1,761 +1,761 @@
 round,match_index,team,p_reach
-Final,0,Argentina,0.19785
-Final,0,Spain,0.18663
-Final,0,Brazil,0.18139
-Final,0,France,0.13116
-Final,0,Germany,0.12487
-Final,0,Belgium,0.10497
-Final,0,Netherlands,0.07804
-Final,0,Ecuador,0.07635
-Final,0,Mexico,0.06617
-Final,0,Colombia,0.06581
-Final,0,England,0.06573
-Final,0,Portugal,0.0655
-Final,0,Morocco,0.06471
-Final,0,Japan,0.0602
-Final,0,South Korea,0.05356
-Final,0,Iran,0.05019
-Final,0,Uruguay,0.04351
-Final,0,Switzerland,0.03741
-Final,0,Turkey,0.03707
-Final,0,Canada,0.02969
-Final,0,Senegal,0.02841
-Final,0,Croatia,0.02828
-Final,0,United States,0.02732
-Final,0,Algeria,0.02688
-Final,0,Egypt,0.0205
-Final,0,Australia,0.02025
-Final,0,Paraguay,0.01904
-Final,0,Ivory Coast,0.01723
-Final,0,Austria,0.01539
-Final,0,Norway,0.01397
-Final,0,South Africa,0.01198
-Final,0,Uzbekistan,0.00576
-Final,0,Iraq,0.00573
-Final,0,Sweden,0.0056
-Final,0,Tunisia,0.00553
-Final,0,Qatar,0.00468
-Final,0,Scotland,0.00342
-Final,0,Jordan,0.00337
-Final,0,Saudi Arabia,0.00278
-Final,0,Bosnia and Herzegovina,0.00267
-Final,0,Panama,0.00212
-Final,0,DR Congo,0.0021
-Final,0,Cape Verde,0.00186
-Final,0,Haiti,0.00161
-Final,0,New Zealand,0.00136
-Final,0,Czechia,0.00054
-Final,0,Ghana,0.00049
-Final,0,Curacao,0.00032
-QF,0,Brazil,0.3724
-QF,0,Netherlands,0.22274
-QF,0,Germany,0.20621
-QF,0,Ecuador,0.18841
-QF,0,Morocco,0.18656
-QF,0,Japan,0.18602
-QF,0,South Korea,0.14118
-QF,0,Mexico,0.09589
-QF,0,Switzerland,0.08446
-QF,0,South Africa,0.06654
-QF,0,Canada,0.05544
-QF,0,Ivory Coast,0.03326
-QF,0,Qatar,0.02767
-QF,0,Tunisia,0.02261
-QF,0,Sweden,0.02157
-QF,0,Scotland,0.02051
-QF,0,Bosnia and Herzegovina,0.0199
-QF,0,Haiti,0.01166
-QF,0,Czechia,0.00943
-QF,0,United States,0.00739
-QF,0,Turkey,0.00708
-QF,0,Paraguay,0.00607
-QF,0,Australia,0.00492
-QF,0,Curacao,0.00208
-QF,1,France,0.35428
-QF,1,Mexico,0.23847
-QF,1,England,0.23146
-QF,1,Germany,0.19881
-QF,1,Ecuador,0.13937
-QF,1,Senegal,0.11055
-QF,1,Croatia,0.08758
-QF,1,Ivory Coast,0.08724
-QF,1,South Korea,0.0845
-QF,1,Norway,0.06645
-QF,1,Iraq,0.04395
-QF,1,Uruguay,0.03268
-QF,1,Morocco,0.0326
-QF,1,Spain,0.02819
-QF,1,Portugal,0.02631
-QF,1,Uzbekistan,0.0221
-QF,1,South Africa,0.02077
-QF,1,Scotland,0.01847
-QF,1,Brazil,0.01653
-QF,1,Panama,0.01175
-QF,1,Colombia,0.01169
-QF,1,Sweden,0.01162
-QF,1,Haiti,0.01127
-QF,1,Netherlands,0.01116
-QF,1,Japan,0.01093
-QF,1,Iran,0.00973
-QF,1,Saudi Arabia,0.00951
-QF,1,Tunisia,0.00936
-QF,1,Cape Verde,0.00861
-QF,1,United States,0.00833
-QF,1,Curacao,0.00715
-QF,1,Turkey,0.00694
-QF,1,DR Congo,0.00632
-QF,1,Paraguay,0.00511
-QF,1,Australia,0.0046
-QF,1,Egypt,0.00403
-QF,1,Belgium,0.00389
-QF,1,Czechia,0.00239
-QF,1,Ghana,0.00227
-QF,1,New Zealand,0.00135
-QF,1,Argentina,0.00064
-QF,1,Austria,0.00046
-QF,1,Jordan,0.00029
-QF,1,Algeria,0.00029
-QF,2,Spain,0.32124
-QF,2,Belgium,0.27108
-QF,2,Portugal,0.12682
-QF,2,Uruguay,0.11427
-QF,2,Iran,0.10685
-QF,2,Argentina,0.10068
-QF,2,Turkey,0.08776
-QF,2,Algeria,0.08003
-QF,2,Colombia,0.0759
-QF,2,United States,0.06189
-QF,2,Croatia,0.05989
-QF,2,Austria,0.05837
-QF,2,Egypt,0.0577
-QF,2,Australia,0.05635
-QF,2,England,0.05621
-QF,2,Paraguay,0.04142
-QF,2,South Korea,0.03608
-QF,2,Senegal,0.02329
-QF,2,Jordan,0.02325
-QF,2,Switzerland,0.02199
-QF,2,Uzbekistan,0.02164
-QF,2,South Africa,0.01848
-QF,2,Saudi Arabia,0.01806
-QF,2,DR Congo,0.01551
-QF,2,Norway,0.0132
-QF,2,Mexico,0.01313
-QF,2,Cape Verde,0.01255
-QF,2,Panama,0.01087
-QF,2,France,0.00995
-QF,2,Canada,0.00863
-QF,2,Iraq,0.0079
-QF,2,Ivory Coast,0.00762
-QF,2,Qatar,0.00748
-QF,2,New Zealand,0.00668
-QF,2,Ecuador,0.00666
-QF,2,Japan,0.00643
-QF,2,Germany,0.00639
-QF,2,Netherlands,0.00574
-QF,2,Bosnia and Herzegovina,0.00551
-QF,2,Sweden,0.00496
-QF,2,Tunisia,0.00425
-QF,2,Ghana,0.00388
-QF,2,Czechia,0.00295
-QF,2,Curacao,0.00046
-QF,3,Argentina,0.38266
-QF,3,Colombia,0.15556
-QF,3,Canada,0.14802
-QF,3,Iran,0.12717
-QF,3,Belgium,0.12003
-QF,3,Turkey,0.09526
-QF,3,Switzerland,0.09493
-QF,3,Portugal,0.08877
-QF,3,Spain,0.08337
-QF,3,Egypt,0.07737
-QF,3,United States,0.07636
-QF,3,Algeria,0.07616
-QF,3,Uruguay,0.07613
-QF,3,Australia,0.0638
-QF,3,Paraguay,0.06042
-QF,3,Austria,0.03499
-QF,3,Qatar,0.01622
-QF,3,Sweden,0.01495
-QF,3,Netherlands,0.01465
-QF,3,Japan,0.0146
-QF,3,Saudi Arabia,0.01357
-QF,3,New Zealand,0.01356
-QF,3,Jordan,0.01314
-QF,3,Ivory Coast,0.01272
-QF,3,Tunisia,0.01267
-QF,3,Cape Verde,0.01145
-QF,3,Senegal,0.01094
-QF,3,Bosnia and Herzegovina,0.01093
-QF,3,Uzbekistan,0.01019
-QF,3,Croatia,0.0097
-QF,3,Germany,0.0094
-QF,3,Panama,0.009
-QF,3,Ecuador,0.00892
-QF,3,England,0.00839
-QF,3,Norway,0.00663
-QF,3,DR Congo,0.00549
-QF,3,France,0.00404
-QF,3,Iraq,0.00368
-QF,3,Ghana,0.00319
-QF,3,Curacao,0.00097
-R16,0,Brazil,0.48973
-R16,0,South Korea,0.2635
-R16,0,Mexico,0.16346
-R16,0,Switzerland,0.15581
-R16,0,Morocco,0.15486
-R16,0,South Africa,0.15462
-R16,0,Netherlands,0.12882
-R16,0,Japan,0.1229
-R16,0,Canada,0.1162
-R16,0,Qatar,0.06733
-R16,0,Bosnia and Herzegovina,0.04872
-R16,0,Sweden,0.03357
-R16,0,Tunisia,0.03357
-R16,0,Czechia,0.03036
-R16,0,Scotland,0.02329
-R16,0,Haiti,0.01326
-R16,1,Germany,0.33534
-R16,1,Ecuador,0.30688
-R16,1,Netherlands,0.29702
-R16,1,Japan,0.25884
-R16,1,Morocco,0.21832
-R16,1,Brazil,0.1215
-R16,1,Ivory Coast,0.07628
-R16,1,Scotland,0.04555
-R16,1,South Korea,0.04191
-R16,1,Tunisia,0.03718
-R16,1,Sweden,0.03599
-R16,1,Haiti,0.03514
-R16,1,South Africa,0.02946
-R16,1,Switzerland,0.0278
-R16,1,Qatar,0.01819
-R16,1,United States,0.01625
-R16,1,Mexico,0.01484
-R16,1,Bosnia and Herzegovina,0.01409
-R16,1,Turkey,0.01306
-R16,1,Paraguay,0.0125
-R16,1,Canada,0.01241
-R16,1,Czechia,0.01157
-R16,1,Australia,0.01055
-R16,1,Curacao,0.00933
-R16,2,France,0.62307
-R16,2,Germany,0.26196
-R16,2,Senegal,0.20518
-R16,2,Ecuador,0.20084
-R16,2,Norway,0.16053
-R16,2,Ivory Coast,0.13524
-R16,2,Iraq,0.11237
-R16,2,Morocco,0.03475
-R16,2,Scotland,0.03343
-R16,2,Iran,0.02558
-R16,2,United States,0.02364
-R16,2,Haiti,0.02322
-R16,2,Curacao,0.02037
-R16,2,Turkey,0.01965
-R16,2,Paraguay,0.01654
-R16,2,Brazil,0.01526
-R16,2,Australia,0.0137
-R16,2,Egypt,0.01368
-R16,2,Belgium,0.00963
-R16,2,Sweden,0.00834
-R16,2,New Zealand,0.00828
-R16,2,Uruguay,0.00699
-R16,2,Tunisia,0.00685
-R16,2,Netherlands,0.00538
-R16,2,Japan,0.0051
-R16,2,Spain,0.00474
-R16,2,Cape Verde,0.00293
-R16,2,Saudi Arabia,0.00275
-R16,3,Mexico,0.43026
-R16,3,England,0.42049
-R16,3,Croatia,0.2037
-R16,3,South Korea,0.15256
-R16,3,Uzbekistan,0.06451
-R16,3,Ivory Coast,0.06439
-R16,3,Portugal,0.05474
-R16,3,Uruguay,0.05288
-R16,3,South Africa,0.05116
-R16,3,Ecuador,0.04264
-R16,3,Panama,0.03997
-R16,3,Germany,0.03942
-R16,3,Spain,0.03624
-R16,3,Morocco,0.02745
-R16,3,Senegal,0.0268
-R16,3,Scotland,0.0253
-R16,3,Saudi Arabia,0.02471
-R16,3,DR Congo,0.02412
-R16,3,Cape Verde,0.02407
-R16,3,Colombia,0.02329
-R16,3,Sweden,0.02178
-R16,3,Norway,0.01817
-R16,3,Tunisia,0.0176
-R16,3,Haiti,0.01708
-R16,3,Netherlands,0.01377
-R16,3,Japan,0.01308
-R16,3,Curacao,0.01212
-R16,3,Brazil,0.0116
-R16,3,Ghana,0.01119
-R16,3,Iraq,0.01096
-R16,3,Czechia,0.01091
-R16,3,France,0.00913
+Final,0,Argentina,0.19932
+Final,0,Spain,0.19105
+Final,0,Brazil,0.18264
+Final,0,France,0.14505
+Final,0,Germany,0.11843
+Final,0,Belgium,0.09969
+Final,0,Netherlands,0.07962
+Final,0,Ecuador,0.07834
+Final,0,Portugal,0.06645
+Final,0,Colombia,0.06445
+Final,0,Mexico,0.06407
+Final,0,Morocco,0.06325
+Final,0,England,0.06211
+Final,0,Japan,0.05862
+Final,0,Iran,0.04987
+Final,0,South Korea,0.04946
+Final,0,Uruguay,0.04427
+Final,0,Switzerland,0.03829
+Final,0,Turkey,0.036
+Final,0,Canada,0.03114
+Final,0,Croatia,0.02876
+Final,0,Senegal,0.02808
+Final,0,United States,0.02726
+Final,0,Algeria,0.02618
+Final,0,Egypt,0.0214
+Final,0,Australia,0.02054
+Final,0,Paraguay,0.01993
+Final,0,Ivory Coast,0.01725
+Final,0,Norway,0.01378
+Final,0,South Africa,0.01373
+Final,0,Austria,0.01078
+Final,0,Uzbekistan,0.00598
+Final,0,Tunisia,0.00575
+Final,0,Iraq,0.00572
+Final,0,Sweden,0.00571
+Final,0,Qatar,0.00421
+Final,0,Jordan,0.00369
+Final,0,Scotland,0.00324
+Final,0,Bosnia and Herzegovina,0.00275
+Final,0,Saudi Arabia,0.00267
+Final,0,DR Congo,0.0022
+Final,0,Panama,0.00204
+Final,0,Cape Verde,0.00196
+Final,0,Haiti,0.00137
+Final,0,New Zealand,0.00131
+Final,0,Czechia,0.00064
+Final,0,Ghana,0.00054
+Final,0,Curacao,0.00041
+QF,0,Brazil,0.37473
+QF,0,Netherlands,0.22574
+QF,0,Germany,0.20518
+QF,0,Ecuador,0.19273
+QF,0,Morocco,0.18572
+QF,0,Japan,0.17806
+QF,0,South Korea,0.13763
+QF,0,Mexico,0.09477
+QF,0,Switzerland,0.08533
+QF,0,South Africa,0.07231
+QF,0,Canada,0.05492
+QF,0,Ivory Coast,0.03254
+QF,0,Qatar,0.0269
+QF,0,Sweden,0.0227
+QF,0,Tunisia,0.02265
+QF,0,Scotland,0.02038
+QF,0,Bosnia and Herzegovina,0.01935
+QF,0,Haiti,0.01065
+QF,0,Czechia,0.00926
+QF,0,United States,0.00801
+QF,0,Turkey,0.00725
+QF,0,Paraguay,0.0059
+QF,0,Australia,0.00495
+QF,0,Curacao,0.00234
+QF,1,France,0.37717
+QF,1,Mexico,0.24498
+QF,1,England,0.23118
+QF,1,Germany,0.176
+QF,1,Ecuador,0.13927
+QF,1,Senegal,0.11053
+QF,1,Croatia,0.0886
+QF,1,Ivory Coast,0.0879
+QF,1,South Korea,0.07882
+QF,1,Norway,0.06782
+QF,1,Iraq,0.04133
+QF,1,Uruguay,0.03228
+QF,1,Morocco,0.032
+QF,1,Spain,0.02604
+QF,1,Portugal,0.02523
+QF,1,South Africa,0.02229
+QF,1,Uzbekistan,0.02101
+QF,1,Scotland,0.01866
+QF,1,Brazil,0.01707
+QF,1,Colombia,0.01272
+QF,1,Panama,0.01169
+QF,1,Sweden,0.01149
+QF,1,Netherlands,0.01137
+QF,1,Haiti,0.01137
+QF,1,Japan,0.01135
+QF,1,Tunisia,0.00992
+QF,1,Iran,0.00984
+QF,1,Saudi Arabia,0.00882
+QF,1,United States,0.00837
+QF,1,Cape Verde,0.00829
+QF,1,Curacao,0.00775
+QF,1,Turkey,0.00718
+QF,1,DR Congo,0.00585
+QF,1,Australia,0.00495
+QF,1,Paraguay,0.00469
+QF,1,Belgium,0.00398
+QF,1,Egypt,0.00395
+QF,1,Czechia,0.00278
+QF,1,Ghana,0.00234
+QF,1,New Zealand,0.00161
+QF,1,Austria,0.00055
+QF,1,Argentina,0.00043
+QF,1,Algeria,0.00032
+QF,1,Jordan,0.00021
+QF,2,Spain,0.33258
+QF,2,Belgium,0.27083
+QF,2,Portugal,0.12434
+QF,2,Uruguay,0.11232
+QF,2,Iran,0.10793
+QF,2,Argentina,0.09923
+QF,2,Turkey,0.09179
+QF,2,Algeria,0.07798
+QF,2,Colombia,0.07708
+QF,2,Egypt,0.06185
+QF,2,United States,0.05999
+QF,2,Croatia,0.05961
+QF,2,Australia,0.05465
+QF,2,England,0.05358
+QF,2,Austria,0.04995
+QF,2,Paraguay,0.04111
+QF,2,South Korea,0.03856
+QF,2,Jordan,0.02347
+QF,2,Senegal,0.02301
+QF,2,Switzerland,0.02257
+QF,2,Uzbekistan,0.02121
+QF,2,South Africa,0.01874
+QF,2,Saudi Arabia,0.01662
+QF,2,DR Congo,0.01552
+QF,2,Cape Verde,0.01398
+QF,2,Norway,0.0129
+QF,2,Mexico,0.01279
+QF,2,Panama,0.01086
+QF,2,France,0.00984
+QF,2,Canada,0.00813
+QF,2,Ivory Coast,0.00773
+QF,2,Iraq,0.00754
+QF,2,New Zealand,0.00747
+QF,2,Qatar,0.00707
+QF,2,Japan,0.00669
+QF,2,Ecuador,0.00652
+QF,2,Germany,0.00635
+QF,2,Netherlands,0.00568
+QF,2,Bosnia and Herzegovina,0.00548
+QF,2,Sweden,0.00516
+QF,2,Tunisia,0.00421
+QF,2,Ghana,0.00365
+QF,2,Czechia,0.00285
+QF,2,Curacao,0.00058
+QF,3,Argentina,0.38798
+QF,3,Canada,0.16953
+QF,3,Colombia,0.1552
+QF,3,Iran,0.12894
+QF,3,Belgium,0.10672
+QF,3,Switzerland,0.09788
+QF,3,Portugal,0.09112
+QF,3,Turkey,0.08347
+QF,3,Spain,0.08097
+QF,3,Egypt,0.07776
+QF,3,Algeria,0.0761
+QF,3,United States,0.07551
+QF,3,Uruguay,0.07468
+QF,3,Australia,0.06299
+QF,3,Paraguay,0.05968
+QF,3,Austria,0.03346
+QF,3,Japan,0.01572
+QF,3,Netherlands,0.01515
+QF,3,Qatar,0.015
+QF,3,Sweden,0.0147
+QF,3,New Zealand,0.01422
+QF,3,Saudi Arabia,0.01355
+QF,3,Tunisia,0.01347
+QF,3,Jordan,0.01299
+QF,3,Ivory Coast,0.01275
+QF,3,Cape Verde,0.01169
+QF,3,Bosnia and Herzegovina,0.01112
+QF,3,Senegal,0.01095
+QF,3,Uzbekistan,0.00971
+QF,3,Germany,0.00966
+QF,3,Croatia,0.00919
+QF,3,Ecuador,0.00898
+QF,3,Panama,0.00826
+QF,3,England,0.00766
+QF,3,Norway,0.0063
+QF,3,DR Congo,0.0054
+QF,3,France,0.00382
+QF,3,Iraq,0.00346
+QF,3,Ghana,0.00338
+QF,3,Curacao,0.00088
+R16,0,Brazil,0.49158
+R16,0,South Korea,0.25823
+R16,0,South Africa,0.16215
+R16,0,Mexico,0.16063
+R16,0,Morocco,0.15826
+R16,0,Switzerland,0.15659
+R16,0,Netherlands,0.12372
+R16,0,Japan,0.12061
+R16,0,Canada,0.11664
+R16,0,Qatar,0.06637
+R16,0,Bosnia and Herzegovina,0.0484
+R16,0,Sweden,0.03521
+R16,0,Tunisia,0.03319
+R16,0,Czechia,0.03099
+R16,0,Scotland,0.02486
+R16,0,Haiti,0.01257
+R16,1,Germany,0.33398
+R16,1,Ecuador,0.31109
+R16,1,Netherlands,0.30998
+R16,1,Japan,0.2462
+R16,1,Morocco,0.21707
+R16,1,Brazil,0.12055
+R16,1,Ivory Coast,0.07562
+R16,1,Scotland,0.04464
+R16,1,South Korea,0.04392
+R16,1,Tunisia,0.04044
+R16,1,Sweden,0.03672
+R16,1,Haiti,0.03353
+R16,1,South Africa,0.02813
+R16,1,Switzerland,0.02771
+R16,1,Qatar,0.01765
+R16,1,United States,0.01601
+R16,1,Bosnia and Herzegovina,0.01408
+R16,1,Mexico,0.01375
+R16,1,Turkey,0.01327
+R16,1,Paraguay,0.01249
+R16,1,Canada,0.01246
+R16,1,Czechia,0.01079
+R16,1,Australia,0.01042
+R16,1,Curacao,0.0095
+R16,2,France,0.62993
+R16,2,Germany,0.25195
+R16,2,Senegal,0.20689
+R16,2,Ecuador,0.20103
+R16,2,Norway,0.16417
+R16,2,Ivory Coast,0.13658
+R16,2,Iraq,0.10709
+R16,2,Morocco,0.03419
+R16,2,Scotland,0.0336
+R16,2,Iran,0.02649
+R16,2,Haiti,0.02366
+R16,2,United States,0.02335
+R16,2,Curacao,0.02243
+R16,2,Turkey,0.01993
+R16,2,Paraguay,0.01585
+R16,2,Brazil,0.01569
+R16,2,Australia,0.01343
+R16,2,Egypt,0.01274
+R16,2,Belgium,0.00957
+R16,2,New Zealand,0.00814
+R16,2,Sweden,0.00808
+R16,2,Uruguay,0.00746
+R16,2,Tunisia,0.00724
+R16,2,Netherlands,0.00532
+R16,2,Japan,0.00526
+R16,2,Spain,0.00432
+R16,2,Cape Verde,0.00306
+R16,2,Saudi Arabia,0.00255
+R16,3,Mexico,0.44009
+R16,3,England,0.42149
+R16,3,Croatia,0.20577
+R16,3,South Korea,0.14226
+R16,3,Uzbekistan,0.06301
+R16,3,Ivory Coast,0.06284
+R16,3,South Africa,0.05367
+R16,3,Portugal,0.05312
+R16,3,Uruguay,0.05123
+R16,3,Ecuador,0.04271
+R16,3,Germany,0.04008
+R16,3,Panama,0.04
+R16,3,Spain,0.03413
+R16,3,Senegal,0.02742
+R16,3,Morocco,0.02662
+R16,3,Scotland,0.02576
+R16,3,Colombia,0.02475
+R16,3,Saudi Arabia,0.02429
+R16,3,DR Congo,0.02405
+R16,3,Cape Verde,0.02323
+R16,3,Sweden,0.02205
+R16,3,Norway,0.01845
+R16,3,Tunisia,0.01783
+R16,3,Haiti,0.0166
+R16,3,Japan,0.01399
+R16,3,Netherlands,0.01371
+R16,3,Brazil,0.01204
+R16,3,Curacao,0.01202
+R16,3,Czechia,0.01184
+R16,3,Ghana,0.01145
+R16,3,Iraq,0.01079
+R16,3,France,0.00919
 R16,3,Austria,0.0013
-R16,3,Jordan,0.001
-R16,3,Argentina,0.00096
-R16,3,Algeria,0.00065
-R16,4,Belgium,0.38931
-R16,4,Turkey,0.22308
-R16,4,United States,0.16929
-R16,4,Iran,0.16754
-R16,4,Australia,0.15753
-R16,4,Paraguay,0.12101
-R16,4,Egypt,0.09938
-R16,4,South Korea,0.05698
-R16,4,Switzerland,0.05635
-R16,4,Austria,0.05331
-R16,4,Senegal,0.04167
-R16,4,South Africa,0.0378
-R16,4,Qatar,0.03411
-R16,4,Jordan,0.03021
-R16,4,Bosnia and Herzegovina,0.02798
-R16,4,Norway,0.02741
-R16,4,Canada,0.02532
-R16,4,Algeria,0.02413
-R16,4,Argentina,0.02324
-R16,4,Mexico,0.0195
-R16,4,Iraq,0.01845
-R16,4,New Zealand,0.01789
-R16,4,Uruguay,0.01779
-R16,4,Ivory Coast,0.01748
-R16,4,Sweden,0.01694
-R16,4,Spain,0.01508
-R16,4,Tunisia,0.01486
-R16,4,France,0.01413
-R16,4,Czechia,0.01318
-R16,4,Japan,0.01269
-R16,4,Netherlands,0.01225
-R16,4,Ecuador,0.01173
-R16,4,Germany,0.01057
-R16,4,Saudi Arabia,0.01004
-R16,4,Cape Verde,0.00915
-R16,4,Curacao,0.00262
-R16,5,Spain,0.43136
-R16,5,Portugal,0.29483
-R16,5,Colombia,0.19017
-R16,5,Uruguay,0.1615
-R16,5,Croatia,0.15716
-R16,5,England,0.13764
-R16,5,Algeria,0.12462
-R16,5,Argentina,0.11263
-R16,5,Uzbekistan,0.08014
-R16,5,Austria,0.07739
-R16,5,DR Congo,0.06952
-R16,5,Panama,0.05066
-R16,5,Saudi Arabia,0.03563
-R16,5,Jordan,0.03176
-R16,5,Cape Verde,0.02511
-R16,5,Ghana,0.01988
-R16,6,Canada,0.30137
-R16,6,Iran,0.23822
-R16,6,Belgium,0.1805
-R16,6,Switzerland,0.17641
-R16,6,Egypt,0.17124
-R16,6,Turkey,0.16289
-R16,6,United States,0.15794
-R16,6,Paraguay,0.13404
-R16,6,Australia,0.13381
-R16,6,New Zealand,0.04971
-R16,6,Qatar,0.04217
-R16,6,Bosnia and Herzegovina,0.03346
-R16,6,Sweden,0.03099
-R16,6,Tunisia,0.02603
-R16,6,Netherlands,0.02139
-R16,6,Japan,0.02116
-R16,6,Ivory Coast,0.01892
-R16,6,Austria,0.0165
-R16,6,Senegal,0.01355
-R16,6,Jordan,0.01064
-R16,6,Germany,0.01039
-R16,6,Ecuador,0.01023
-R16,6,Norway,0.00915
-R16,6,Algeria,0.00889
-R16,6,Argentina,0.00823
-R16,6,Iraq,0.00562
-R16,6,France,0.00375
-R16,6,Curacao,0.0028
-R16,7,Argentina,0.50379
-R16,7,Colombia,0.42628
-R16,7,Portugal,0.22733
-R16,7,Algeria,0.12258
-R16,7,Uruguay,0.12207
-R16,7,Spain,0.11735
-R16,7,Austria,0.05709
-R16,7,Panama,0.04355
-R16,7,Uzbekistan,0.03892
-R16,7,Saudi Arabia,0.03678
-R16,7,United States,0.03492
-R16,7,Cape Verde,0.03106
-R16,7,Turkey,0.02958
-R16,7,Croatia,0.027
-R16,7,Paraguay,0.02576
-R16,7,DR Congo,0.02519
-R16,7,Jordan,0.02397
-R16,7,Australia,0.02341
-R16,7,England,0.02261
-R16,7,Ghana,0.01886
-R16,7,Ivory Coast,0.00937
-R16,7,Senegal,0.00837
-R16,7,Ecuador,0.0058
-R16,7,Norway,0.00562
-R16,7,Germany,0.00497
-R16,7,Iraq,0.0034
-R16,7,France,0.00266
-R16,7,Curacao,0.00171
-R32,0,South Korea,0.37549
-R32,0,Switzerland,0.31643
-R32,0,Canada,0.28187
-R32,0,South Africa,0.27621
-R32,0,Mexico,0.23397
-R32,0,Qatar,0.21858
-R32,0,Bosnia and Herzegovina,0.18312
-R32,0,Czechia,0.11433
-R32,1,Brazil,0.67284
-R32,1,Netherlands,0.34717
-R32,1,Japan,0.34067
-R32,1,Morocco,0.23469
-R32,1,Sweden,0.16077
-R32,1,Tunisia,0.15139
-R32,1,Scotland,0.05599
-R32,1,Haiti,0.03648
-R32,2,Germany,0.43788
-R32,2,Ecuador,0.41538
-R32,2,South Africa,0.14099
-R32,2,South Korea,0.12064
-R32,2,Ivory Coast,0.11608
-R32,2,Qatar,0.08737
-R32,2,Switzerland,0.0839
-R32,2,Bosnia and Herzegovina,0.07644
-R32,2,Czechia,0.07518
-R32,2,United States,0.04876
-R32,2,Canada,0.04301
-R32,2,Paraguay,0.04174
-R32,2,Scotland,0.04107
-R32,2,Turkey,0.0403
-R32,2,Mexico,0.03971
-R32,2,Haiti,0.03423
-R32,2,Australia,0.0337
-R32,2,Curacao,0.03066
-R32,2,Morocco,0.02484
-R32,2,Sweden,0.02267
-R32,2,Tunisia,0.01874
-R32,2,Brazil,0.0096
-R32,2,Japan,0.00886
+R16,3,Jordan,0.00082
+R16,3,Algeria,0.0007
+R16,3,Argentina,0.0007
+R16,4,Belgium,0.38963
+R16,4,Turkey,0.22649
+R16,4,Iran,0.16798
+R16,4,United States,0.16664
+R16,4,Australia,0.15722
+R16,4,Paraguay,0.11957
+R16,4,Egypt,0.10477
+R16,4,South Korea,0.06002
+R16,4,Switzerland,0.05711
+R16,4,Austria,0.04508
+R16,4,Senegal,0.04197
+R16,4,South Africa,0.03876
+R16,4,Qatar,0.03354
+R16,4,Jordan,0.02956
+R16,4,Bosnia and Herzegovina,0.02763
+R16,4,Norway,0.02753
+R16,4,Algeria,0.02574
+R16,4,Canada,0.02501
+R16,4,Argentina,0.02224
+R16,4,Mexico,0.0188
+R16,4,New Zealand,0.01875
+R16,4,Uruguay,0.01823
+R16,4,Iraq,0.01812
+R16,4,Ivory Coast,0.01755
+R16,4,Sweden,0.01735
+R16,4,Spain,0.01527
+R16,4,Tunisia,0.01478
+R16,4,France,0.01447
+R16,4,Japan,0.01361
+R16,4,Czechia,0.01288
+R16,4,Ecuador,0.01147
+R16,4,Netherlands,0.01096
+R16,4,Germany,0.01064
+R16,4,Saudi Arabia,0.00923
+R16,4,Cape Verde,0.00859
+R16,4,Curacao,0.00281
+R16,5,Spain,0.44648
+R16,5,Portugal,0.2954
+R16,5,Colombia,0.19165
+R16,5,Croatia,0.1591
+R16,5,Uruguay,0.15683
+R16,5,England,0.13449
+R16,5,Algeria,0.11879
+R16,5,Argentina,0.11062
+R16,5,Uzbekistan,0.07796
+R16,5,Austria,0.07416
+R16,5,DR Congo,0.07093
+R16,5,Panama,0.0507
+R16,5,Saudi Arabia,0.03384
+R16,5,Jordan,0.03275
+R16,5,Cape Verde,0.02653
+R16,5,Ghana,0.01977
+R16,6,Canada,0.30667
+R16,6,Iran,0.23901
+R16,6,Switzerland,0.17942
+R16,6,Egypt,0.17359
+R16,6,Belgium,0.17334
+R16,6,United States,0.16005
+R16,6,Turkey,0.15922
+R16,6,Australia,0.13524
+R16,6,Paraguay,0.13409
+R16,6,New Zealand,0.04874
+R16,6,Qatar,0.03994
+R16,6,Bosnia and Herzegovina,0.03447
+R16,6,Sweden,0.03035
+R16,6,Tunisia,0.02655
+R16,6,Japan,0.02275
+R16,6,Netherlands,0.02148
+R16,6,Ivory Coast,0.0179
+R16,6,Austria,0.01624
+R16,6,Senegal,0.01329
+R16,6,Jordan,0.01082
+R16,6,Germany,0.01023
+R16,6,Ecuador,0.00994
+R16,6,Norway,0.00909
+R16,6,Algeria,0.00883
+R16,6,Argentina,0.00731
+R16,6,Iraq,0.00511
+R16,6,France,0.0039
+R16,6,Curacao,0.00243
+R16,7,Argentina,0.51141
+R16,7,Colombia,0.43016
+R16,7,Portugal,0.2301
+R16,7,Algeria,0.1229
+R16,7,Uruguay,0.11909
+R16,7,Spain,0.11423
+R16,7,Austria,0.0563
+R16,7,Panama,0.04063
+R16,7,Uzbekistan,0.03752
+R16,7,Saudi Arabia,0.03627
+R16,7,United States,0.03413
+R16,7,Cape Verde,0.03061
+R16,7,Turkey,0.02947
+R16,7,Croatia,0.0266
+R16,7,Paraguay,0.02564
+R16,7,DR Congo,0.02552
+R16,7,Jordan,0.02438
+R16,7,Australia,0.0235
+R16,7,England,0.02097
+R16,7,Ghana,0.0201
+R16,7,Ivory Coast,0.00905
+R16,7,Senegal,0.00757
+R16,7,Ecuador,0.00556
+R16,7,Norway,0.0055
+R16,7,Germany,0.00544
+R16,7,Iraq,0.00346
+R16,7,France,0.00228
+R16,7,Curacao,0.00161
+R32,0,South Korea,0.36873
+R32,0,Switzerland,0.31789
+R32,0,South Africa,0.2886
+R32,0,Canada,0.28407
+R32,0,Mexico,0.22904
+R32,0,Qatar,0.21472
+R32,0,Bosnia and Herzegovina,0.18332
+R32,0,Czechia,0.11363
+R32,1,Brazil,0.67273
+R32,1,Japan,0.34346
+R32,1,Netherlands,0.33618
+R32,1,Morocco,0.23567
+R32,1,Sweden,0.16541
+R32,1,Tunisia,0.15495
+R32,1,Scotland,0.05762
+R32,1,Haiti,0.03398
+R32,2,Germany,0.43562
+R32,2,Ecuador,0.41733
+R32,2,South Africa,0.13382
+R32,2,South Korea,0.12687
+R32,2,Ivory Coast,0.11619
+R32,2,Qatar,0.08759
+R32,2,Switzerland,0.08281
+R32,2,Bosnia and Herzegovina,0.07731
+R32,2,Czechia,0.07263
+R32,2,United States,0.04928
+R32,2,Canada,0.04384
+R32,2,Scotland,0.04364
+R32,2,Paraguay,0.04122
+R32,2,Turkey,0.04023
+R32,2,Mexico,0.0378
+R32,2,Haiti,0.03448
+R32,2,Australia,0.03364
+R32,2,Curacao,0.03086
+R32,2,Morocco,0.02557
+R32,2,Sweden,0.0235
+R32,2,Tunisia,0.01845
+R32,2,Japan,0.00957
+R32,2,Brazil,0.0095
 R32,2,Netherlands,0.00825
-R32,3,Morocco,0.48158
-R32,3,Netherlands,0.45647
-R32,3,Japan,0.40706
-R32,3,Brazil,0.22415
-R32,3,Scotland,0.15123
-R32,3,Haiti,0.14304
-R32,3,Tunisia,0.06965
-R32,3,Sweden,0.06682
-R32,4,Germany,0.36316
-R32,4,Ecuador,0.30777
-R32,4,Senegal,0.28845
-R32,4,Norway,0.27109
-R32,4,Ivory Coast,0.24063
-R32,4,Iraq,0.23169
-R32,4,France,0.20877
-R32,4,Curacao,0.08844
-R32,5,France,0.66477
-R32,5,Scotland,0.147
-R32,5,Senegal,0.1433
-R32,5,Haiti,0.12499
-R32,5,Norway,0.11906
-R32,5,Morocco,0.08992
-R32,5,United States,0.07697
-R32,5,Iraq,0.07287
-R32,5,Iran,0.07222
-R32,5,Turkey,0.06115
-R32,5,Paraguay,0.05965
-R32,5,Egypt,0.05905
-R32,5,New Zealand,0.05331
-R32,5,Australia,0.04726
-R32,5,Sweden,0.03641
-R32,5,Brazil,0.03334
-R32,5,Tunisia,0.02903
-R32,5,Belgium,0.025
-R32,5,Uruguay,0.01848
-R32,5,Cape Verde,0.01511
-R32,5,Saudi Arabia,0.01456
-R32,5,Japan,0.01444
-R32,5,Netherlands,0.01302
-R32,5,Spain,0.00909
-R32,6,Mexico,0.62434
-R32,6,South Korea,0.23238
-R32,6,South Africa,0.10051
-R32,6,Scotland,0.09441
-R32,6,Ivory Coast,0.09398
-R32,6,Uruguay,0.07923
-R32,6,Haiti,0.07908
-R32,6,Sweden,0.07142
-R32,6,Cape Verde,0.06718
-R32,6,Saudi Arabia,0.06375
-R32,6,Tunisia,0.05838
-R32,6,Morocco,0.05647
-R32,6,Senegal,0.04429
-R32,6,Ecuador,0.04298
-R32,6,Czechia,0.04277
-R32,6,Spain,0.0392
-R32,6,Germany,0.03496
-R32,6,Norway,0.03332
-R32,6,Curacao,0.03052
-R32,6,Japan,0.02888
-R32,6,Iraq,0.02609
-R32,6,Netherlands,0.02606
-R32,6,Brazil,0.01978
-R32,6,France,0.01002
-R32,7,England,0.57974
-R32,7,Croatia,0.31359
-R32,7,Uzbekistan,0.21609
-R32,7,Ivory Coast,0.12902
-R32,7,Portugal,0.12392
-R32,7,DR Congo,0.10618
-R32,7,Panama,0.07913
-R32,7,Ecuador,0.06078
-R32,7,Colombia,0.05546
-R32,7,Curacao,0.04741
-R32,7,Germany,0.04693
-R32,7,Uruguay,0.0428
-R32,7,Cape Verde,0.03898
-R32,7,Saudi Arabia,0.0363
-R32,7,Ghana,0.02754
-R32,7,Senegal,0.02584
-R32,7,Spain,0.02183
-R32,7,Norway,0.01845
-R32,7,Iraq,0.01354
-R32,7,France,0.00534
-R32,7,Jordan,0.00412
-R32,7,Austria,0.00409
-R32,7,Algeria,0.00155
-R32,7,Argentina,0.00137
-R32,8,Belgium,0.54751
-R32,8,Iran,0.25327
-R32,8,South Africa,0.16582
-R32,8,Egypt,0.1604
-R32,8,South Korea,0.14481
-R32,8,Czechia,0.08809
-R32,8,Austria,0.07514
-R32,8,Jordan,0.06273
-R32,8,Senegal,0.05987
-R32,8,Uruguay,0.04716
-R32,8,Norway,0.04676
-R32,8,Mexico,0.04587
-R32,8,Cape Verde,0.04162
-R32,8,Saudi Arabia,0.0393
-R32,8,New Zealand,0.03882
-R32,8,Algeria,0.03569
-R32,8,Iraq,0.03561
-R32,8,Ivory Coast,0.02509
-R32,8,Spain,0.02364
-R32,8,Argentina,0.01993
-R32,8,France,0.01304
-R32,8,Ecuador,0.01227
-R32,8,Germany,0.00928
-R32,8,Curacao,0.00828
-R32,9,Turkey,0.32672
-R32,9,United States,0.24851
-R32,9,Australia,0.2417
-R32,9,Paraguay,0.18307
-R32,9,Qatar,0.15278
-R32,9,Switzerland,0.14317
-R32,9,Bosnia and Herzegovina,0.14111
-R32,9,Canada,0.07508
-R32,9,Austria,0.06413
-R32,9,Sweden,0.05854
-R32,9,Jordan,0.05319
-R32,9,Tunisia,0.04745
-R32,9,Senegal,0.04467
-R32,9,Norway,0.03528
-R32,9,Algeria,0.02868
-R32,9,Ivory Coast,0.02688
-R32,9,Iraq,0.02525
-R32,9,Japan,0.0229
-R32,9,Netherlands,0.0216
-R32,9,Argentina,0.01686
-R32,9,Ecuador,0.01272
-R32,9,Germany,0.01032
-R32,9,France,0.00999
-R32,9,Curacao,0.0094
-R32,10,Spain,0.58356
-R32,10,Algeria,0.36827
-R32,10,Austria,0.26527
-R32,10,Uruguay,0.26049
-R32,10,Argentina,0.22741
-R32,10,Jordan,0.13905
-R32,10,Saudi Arabia,0.08794
-R32,10,Cape Verde,0.06801
-R32,11,Portugal,0.42053
-R32,11,Croatia,0.39389
-R32,11,England,0.30388
-R32,11,Colombia,0.26883
-R32,11,Panama,0.20087
-R32,11,Uzbekistan,0.1568
-R32,11,DR Congo,0.15384
-R32,11,Ghana,0.10136
-R32,12,Canada,0.52123
-R32,12,Switzerland,0.29048
-R32,12,Iran,0.1757
-R32,12,Egypt,0.13519
-R32,12,New Zealand,0.12639
-R32,12,Qatar,0.09931
-R32,12,Sweden,0.08964
-R32,12,Bosnia and Herzegovina,0.08898
-R32,12,Tunisia,0.07147
-R32,12,Belgium,0.05997
-R32,12,Ivory Coast,0.04337
-R32,12,Austria,0.04307
-R32,12,Jordan,0.03548
-R32,12,Japan,0.03541
-R32,12,Netherlands,0.03188
-R32,12,Senegal,0.02804
-R32,12,Norway,0.02163
-R32,12,Ecuador,0.01992
-R32,12,Algeria,0.01944
-R32,12,Curacao,0.01633
-R32,12,Germany,0.01551
-R32,12,Iraq,0.01391
-R32,12,Argentina,0.01155
-R32,12,France,0.0061
-R32,13,Iran,0.33996
-R32,13,Egypt,0.31155
-R32,13,Turkey,0.26302
-R32,13,Belgium,0.25767
-R32,13,United States,0.25344
-R32,13,Australia,0.25048
-R32,13,Paraguay,0.23306
-R32,13,New Zealand,0.09082
-R32,14,Argentina,0.6611
-R32,14,Uruguay,0.3992
-R32,14,Spain,0.25984
-R32,14,Algeria,0.19648
-R32,14,Saudi Arabia,0.17397
-R32,14,Cape Verde,0.16699
-R32,14,Austria,0.09129
-R32,14,Jordan,0.05113
-R32,15,Colombia,0.57192
-R32,15,Portugal,0.30682
-R32,15,Panama,0.20293
-R32,15,United States,0.11408
-R32,15,Ghana,0.10695
-R32,15,Paraguay,0.09311
-R32,15,Turkey,0.09131
-R32,15,Croatia,0.07696
-R32,15,Australia,0.07552
-R32,15,Uzbekistan,0.06942
-R32,15,England,0.0544
-R32,15,DR Congo,0.05184
-R32,15,Ivory Coast,0.03304
-R32,15,Senegal,0.0257
-R32,15,Austria,0.01921
-R32,15,Norway,0.01901
-R32,15,Jordan,0.01542
-R32,15,Ecuador,0.01537
-R32,15,Iraq,0.01464
-R32,15,Germany,0.01233
-R32,15,Curacao,0.01109
-R32,15,Algeria,0.00854
-R32,15,France,0.0055
-R32,15,Argentina,0.00489
-SF,0,Brazil,0.2651
-SF,0,France,0.25015
-SF,0,Germany,0.22297
-SF,0,Ecuador,0.15817
-SF,0,Mexico,0.14255
-SF,0,Netherlands,0.12406
-SF,0,Morocco,0.11196
-SF,0,England,0.10379
-SF,0,South Korea,0.09929
-SF,0,Japan,0.09501
-SF,0,Senegal,0.05979
-SF,0,Ivory Coast,0.04643
-SF,0,Switzerland,0.04031
-SF,0,Croatia,0.03217
-SF,0,Norway,0.03189
-SF,0,South Africa,0.02675
-SF,0,Canada,0.02402
-SF,0,Iraq,0.01718
-SF,0,Spain,0.01623
-SF,0,Uruguay,0.01242
-SF,0,Scotland,0.01152
-SF,0,Portugal,0.01092
-SF,0,Sweden,0.01022
-SF,0,Tunisia,0.00999
-SF,0,Qatar,0.00894
-SF,0,United States,0.00725
-SF,0,Uzbekistan,0.00622
-SF,0,Turkey,0.00604
-SF,0,Haiti,0.00602
-SF,0,Bosnia and Herzegovina,0.00586
-SF,0,Colombia,0.00512
-SF,0,Iran,0.00511
-SF,0,Paraguay,0.00447
-SF,0,Australia,0.00411
-SF,0,Panama,0.00273
-SF,0,Belgium,0.00223
-SF,0,Czechia,0.00216
-SF,0,Saudi Arabia,0.00208
-SF,0,Egypt,0.002
-SF,0,Curacao,0.00189
+R32,3,Morocco,0.48408
+R32,3,Netherlands,0.47073
+R32,3,Japan,0.3871
+R32,3,Brazil,0.22421
+R32,3,Scotland,0.15338
+R32,3,Haiti,0.13833
+R32,3,Tunisia,0.07307
+R32,3,Sweden,0.0691
+R32,4,Germany,0.36107
+R32,4,Ecuador,0.307
+R32,4,Senegal,0.28817
+R32,4,Norway,0.27534
+R32,4,Ivory Coast,0.24354
+R32,4,Iraq,0.22467
+R32,4,France,0.21182
+R32,4,Curacao,0.08839
+R32,5,France,0.66378
+R32,5,Scotland,0.14894
+R32,5,Senegal,0.14555
+R32,5,Haiti,0.12339
+R32,5,Norway,0.12127
+R32,5,Morocco,0.08873
+R32,5,United States,0.07695
+R32,5,Iran,0.07552
+R32,5,Iraq,0.0694
+R32,5,Turkey,0.06127
+R32,5,Paraguay,0.05807
+R32,5,Egypt,0.05752
+R32,5,New Zealand,0.05294
+R32,5,Australia,0.04637
+R32,5,Sweden,0.03526
+R32,5,Brazil,0.0336
+R32,5,Tunisia,0.02986
+R32,5,Belgium,0.02608
+R32,5,Uruguay,0.01961
+R32,5,Cape Verde,0.01568
+R32,5,Saudi Arabia,0.01457
+R32,5,Japan,0.01437
+R32,5,Netherlands,0.01284
+R32,5,Spain,0.00843
+R32,6,Mexico,0.6337
+R32,6,South Korea,0.21754
+R32,6,South Africa,0.10404
+R32,6,Scotland,0.09523
+R32,6,Ivory Coast,0.09227
+R32,6,Haiti,0.07956
+R32,6,Uruguay,0.07955
+R32,6,Sweden,0.07075
+R32,6,Cape Verde,0.06641
+R32,6,Saudi Arabia,0.06376
+R32,6,Tunisia,0.06055
+R32,6,Morocco,0.05604
+R32,6,Senegal,0.0459
+R32,6,Czechia,0.04472
+R32,6,Ecuador,0.04096
+R32,6,Spain,0.03636
+R32,6,Germany,0.03456
+R32,6,Norway,0.03409
+R32,6,Curacao,0.03031
+R32,6,Japan,0.0299
+R32,6,Iraq,0.02696
+R32,6,Netherlands,0.02537
+R32,6,Brazil,0.02106
+R32,6,France,0.01041
+R32,7,England,0.58144
+R32,7,Croatia,0.31427
+R32,7,Uzbekistan,0.21398
+R32,7,Ivory Coast,0.12892
+R32,7,Portugal,0.12045
+R32,7,DR Congo,0.10716
+R32,7,Panama,0.07755
+R32,7,Ecuador,0.0611
+R32,7,Colombia,0.0572
+R32,7,Germany,0.0498
+R32,7,Curacao,0.04887
+R32,7,Uruguay,0.04361
+R32,7,Cape Verde,0.03836
+R32,7,Saudi Arabia,0.03583
+R32,7,Ghana,0.02674
+R32,7,Senegal,0.02556
+R32,7,Spain,0.02076
+R32,7,Norway,0.01844
+R32,7,Iraq,0.01357
+R32,7,France,0.00561
+R32,7,Austria,0.00433
+R32,7,Jordan,0.00348
+R32,7,Algeria,0.00194
+R32,7,Argentina,0.00103
+R32,8,Belgium,0.54796
+R32,8,Iran,0.24427
+R32,8,Egypt,0.16937
+R32,8,South Africa,0.16373
+R32,8,South Korea,0.15304
+R32,8,Czechia,0.08921
+R32,8,Austria,0.07529
+R32,8,Jordan,0.06024
+R32,8,Senegal,0.06013
+R32,8,Uruguay,0.04712
+R32,8,Mexico,0.04593
+R32,8,Norway,0.04573
+R32,8,Cape Verde,0.04119
+R32,8,New Zealand,0.0384
+R32,8,Saudi Arabia,0.03782
+R32,8,Iraq,0.03648
+R32,8,Algeria,0.03534
+R32,8,Ivory Coast,0.02444
+R32,8,Spain,0.02362
+R32,8,Argentina,0.01913
+R32,8,France,0.01305
+R32,8,Ecuador,0.01148
+R32,8,Germany,0.00889
+R32,8,Curacao,0.00814
+R32,9,Turkey,0.33328
+R32,9,United States,0.24687
+R32,9,Australia,0.23833
+R32,9,Paraguay,0.18152
+R32,9,Qatar,0.15275
+R32,9,Switzerland,0.14223
+R32,9,Bosnia and Herzegovina,0.13909
+R32,9,Canada,0.07538
+R32,9,Austria,0.06501
+R32,9,Sweden,0.05898
+R32,9,Jordan,0.05233
+R32,9,Tunisia,0.04817
+R32,9,Senegal,0.0457
+R32,9,Norway,0.03392
+R32,9,Algeria,0.02942
+R32,9,Ivory Coast,0.02751
+R32,9,Iraq,0.02511
+R32,9,Japan,0.02442
+R32,9,Netherlands,0.02048
+R32,9,Argentina,0.01639
+R32,9,Ecuador,0.01322
+R32,9,Germany,0.01066
+R32,9,Curacao,0.00962
+R32,9,France,0.00961
+R32,10,Spain,0.59875
+R32,10,Algeria,0.36888
+R32,10,Austria,0.26206
+R32,10,Uruguay,0.25178
+R32,10,Argentina,0.22441
+R32,10,Jordan,0.14465
+R32,10,Saudi Arabia,0.08263
+R32,10,Cape Verde,0.06684
+R32,11,Portugal,0.42029
+R32,11,Croatia,0.39647
+R32,11,England,0.30262
+R32,11,Colombia,0.26878
+R32,11,Panama,0.20076
+R32,11,Uzbekistan,0.15564
+R32,11,DR Congo,0.15529
+R32,11,Ghana,0.10015
+R32,12,Canada,0.51725
+R32,12,Switzerland,0.29512
+R32,12,Iran,0.18095
+R32,12,Egypt,0.1357
+R32,12,New Zealand,0.12388
+R32,12,Qatar,0.09658
+R32,12,Bosnia and Herzegovina,0.09105
+R32,12,Sweden,0.08665
+R32,12,Tunisia,0.07261
+R32,12,Belgium,0.06213
+R32,12,Ivory Coast,0.0425
+R32,12,Austria,0.04169
+R32,12,Japan,0.03741
+R32,12,Jordan,0.03544
+R32,12,Netherlands,0.03193
+R32,12,Senegal,0.02745
+R32,12,Norway,0.02049
+R32,12,Ecuador,0.0199
+R32,12,Algeria,0.01962
+R32,12,Germany,0.01571
+R32,12,Curacao,0.01541
+R32,12,Iraq,0.01432
+R32,12,Argentina,0.0104
+R32,12,France,0.00581
+R32,13,Iran,0.33773
+R32,13,Egypt,0.31682
+R32,13,Turkey,0.25801
+R32,13,United States,0.25796
+R32,13,Belgium,0.2547
+R32,13,Australia,0.25114
+R32,13,Paraguay,0.23289
+R32,13,New Zealand,0.09075
+R32,14,Argentina,0.66792
+R32,14,Uruguay,0.39926
+R32,14,Spain,0.25225
+R32,14,Algeria,0.19331
+R32,14,Saudi Arabia,0.1763
+R32,14,Cape Verde,0.17219
+R32,14,Austria,0.08829
+R32,14,Jordan,0.05048
+R32,15,Colombia,0.57158
+R32,15,Portugal,0.309
+R32,15,Panama,0.20148
+R32,15,United States,0.11391
+R32,15,Ghana,0.11181
+R32,15,Turkey,0.09257
+R32,15,Paraguay,0.09194
+R32,15,Croatia,0.07672
+R32,15,Australia,0.07491
+R32,15,Uzbekistan,0.06857
+R32,15,England,0.05345
+R32,15,DR Congo,0.05085
+R32,15,Ivory Coast,0.03336
+R32,15,Senegal,0.02443
+R32,15,Norway,0.01903
+R32,15,Austria,0.01851
+R32,15,Ecuador,0.01508
+R32,15,Iraq,0.01493
+R32,15,Jordan,0.01484
+R32,15,Germany,0.01351
+R32,15,Curacao,0.01098
+R32,15,Algeria,0.00878
+R32,15,France,0.00512
+R32,15,Argentina,0.00464
+SF,0,France,0.26821
+SF,0,Brazil,0.26588
+SF,0,Germany,0.21002
+SF,0,Ecuador,0.16205
+SF,0,Mexico,0.1412
+SF,0,Netherlands,0.12625
+SF,0,Morocco,0.11113
+SF,0,England,0.10012
+SF,0,South Korea,0.09191
+SF,0,Japan,0.09176
+SF,0,Senegal,0.05996
+SF,0,Ivory Coast,0.04621
+SF,0,Switzerland,0.04127
+SF,0,Norway,0.03262
+SF,0,Croatia,0.03254
+SF,0,South Africa,0.03137
+SF,0,Canada,0.02304
+SF,0,Iraq,0.01649
+SF,0,Spain,0.01498
+SF,0,Uruguay,0.01306
+SF,0,Scotland,0.01127
+SF,0,Sweden,0.01087
+SF,0,Tunisia,0.01057
+SF,0,Portugal,0.01048
+SF,0,Qatar,0.00824
+SF,0,United States,0.00718
+SF,0,Turkey,0.00653
+SF,0,Uzbekistan,0.0063
+SF,0,Colombia,0.0058
+SF,0,Haiti,0.00549
+SF,0,Bosnia and Herzegovina,0.0054
+SF,0,Iran,0.00518
+SF,0,Australia,0.00425
+SF,0,Paraguay,0.00421
+SF,0,Panama,0.00275
+SF,0,Belgium,0.00241
+SF,0,Czechia,0.00231
+SF,0,Curacao,0.00221
+SF,0,Egypt,0.00196
+SF,0,Saudi Arabia,0.00193
 SF,0,Cape Verde,0.00182
-SF,0,DR Congo,0.00146
-SF,0,New Zealand,0.00044
-SF,0,Argentina,0.0004
+SF,0,DR Congo,0.00124
+SF,0,New Zealand,0.00055
 SF,0,Ghana,0.00038
-SF,0,Austria,0.00017
-SF,0,Algeria,0.00012
-SF,0,Jordan,9e-05
-SF,1,Argentina,0.32072
-SF,1,Spain,0.25962
-SF,1,Belgium,0.20164
-SF,1,Colombia,0.12801
-SF,1,Portugal,0.11402
-SF,1,Iran,0.11204
-SF,1,Turkey,0.084
-SF,1,Uruguay,0.08191
-SF,1,Canada,0.06461
-SF,1,Algeria,0.0645
-SF,1,United States,0.0626
-SF,1,Egypt,0.05729
-SF,1,Switzerland,0.05135
-SF,1,Australia,0.05058
-SF,1,Paraguay,0.0465
-SF,1,Austria,0.03648
-SF,1,England,0.03484
-SF,1,Croatia,0.03229
-SF,1,South Korea,0.01723
-SF,1,Senegal,0.01646
-SF,1,Japan,0.01135
-SF,1,Jordan,0.011
-SF,1,Uzbekistan,0.01079
-SF,1,Netherlands,0.0107
-SF,1,Ivory Coast,0.00889
-SF,1,Germany,0.00886
-SF,1,France,0.00854
-SF,1,Saudi Arabia,0.00849
-SF,1,Norway,0.00817
-SF,1,Ecuador,0.00806
-SF,1,Qatar,0.00772
-SF,1,Sweden,0.00725
-SF,1,South Africa,0.00702
-SF,1,Mexico,0.00688
-SF,1,Tunisia,0.0063
-SF,1,Cape Verde,0.00564
-SF,1,New Zealand,0.00554
-SF,1,Panama,0.00514
-SF,1,DR Congo,0.00509
-SF,1,Bosnia and Herzegovina,0.00496
-SF,1,Iraq,0.00463
-SF,1,Ghana,0.00146
-SF,1,Czechia,0.00052
-SF,1,Curacao,0.00031
+SF,0,Argentina,0.00031
+SF,0,Austria,0.00015
+SF,0,Algeria,9e-05
+SF,0,Jordan,5e-05
+SF,1,Argentina,0.3227
+SF,1,Spain,0.26745
+SF,1,Belgium,0.19145
+SF,1,Colombia,0.12652
+SF,1,Portugal,0.11749
+SF,1,Iran,0.11343
+SF,1,Uruguay,0.08258
+SF,1,Turkey,0.07891
+SF,1,Canada,0.071
+SF,1,Algeria,0.06312
+SF,1,United States,0.06132
+SF,1,Egypt,0.06086
+SF,1,Switzerland,0.05277
+SF,1,Australia,0.04954
+SF,1,Paraguay,0.04738
+SF,1,England,0.03357
+SF,1,Croatia,0.03233
+SF,1,Austria,0.02961
+SF,1,South Korea,0.01846
+SF,1,Senegal,0.01639
+SF,1,Japan,0.0117
+SF,1,Netherlands,0.01123
+SF,1,Jordan,0.01117
+SF,1,Uzbekistan,0.0103
+SF,1,Ivory Coast,0.00879
+SF,1,Germany,0.00874
+SF,1,France,0.00862
+SF,1,Norway,0.00835
+SF,1,Ecuador,0.00818
+SF,1,Saudi Arabia,0.00796
+SF,1,Sweden,0.00729
+SF,1,South Africa,0.00703
+SF,1,Mexico,0.0069
+SF,1,Tunisia,0.0068
+SF,1,Qatar,0.00668
+SF,1,Cape Verde,0.006
+SF,1,New Zealand,0.00599
+SF,1,Panama,0.0051
+SF,1,DR Congo,0.00498
+SF,1,Bosnia and Herzegovina,0.00454
+SF,1,Iraq,0.00442
+SF,1,Ghana,0.0015
+SF,1,Czechia,0.00055
+SF,1,Curacao,0.0003
