@@ -361,7 +361,7 @@ def load_goalscorers(path: Path | str = DATA_RAW / "goalscorers.csv") -> pd.Data
 def load_shootouts(path: Path | str = DATA_RAW / "shootouts.csv") -> pd.DataFrame:
     return pd.read_csv(path, parse_dates=["date"])
 
-def load_fixtures(path: Path | str = DATA_RAW / "wc2026_fixtures.csv") -> pd.DataFrame:
+def load_fixtures(path: Path | str = DATA_RAW / "wc2026_fixtures-backup.csv") -> pd.DataFrame:
     return pd.read_csv(path, parse_dates=["date"])
 ```
 
@@ -2135,7 +2135,7 @@ def load_shap():
 
 @st.cache_data
 def load_fixtures():
-    return pd.read_csv("data/raw/wc2026_fixtures.csv", parse_dates=["date"])
+    return pd.read_csv("data/raw/wc2026_fixtures-backup.csv", parse_dates=["date"])
 
 
 def tab_match_predictor(features: pd.DataFrame, sim_results: pd.DataFrame):
